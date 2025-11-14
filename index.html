@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
     <meta charset="utf-8"/>
@@ -66,7 +27,6 @@
     <meta name="description" content="מדיה בוקס - אפליקציה חברתית חינמית ללא מטרות רווח, הכוללת סרטים, סדרות, מוזיקה ועוד!"/>
     <meta name="keywords" content="מדיה בוקס, אפליקציה, סרטים, סדרות, מוזיקה, IPTV, רדיו, פודקאסטים"/>
     <meta name="author" content="מדיה בוקס"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/J0vy2JCJ/d4a474e3-515a-4392-8134-78c77533541f.jpg">
@@ -75,33 +35,44 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Assistant:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root { 
-            --bg: #0f172a; /* כחול כהה מודרני */
-            --text: #e2e8f0; /* אפור בהיר נקי */
-            --muted: #94a3b8; /* אפור בינוני */
-            --card: #1e293b; /* כחול-אפור כהה לכרטיסים */
-            --border: #93c5fd; /* כחול בהיר */
-            --brand-600: #2563eb; /* כחול עמוק */
-            --brand-700: #1d4ed8; /* כחול כהה יותר */
-            --accent-color: #60a5fa; /* כחול בהיר */
-            --secondary-accent: #93c5fd; /* כחול בהיר נוסף */
-            --chip-bg: #f0f0f0; 
-            --chip-border: #1e3a8a; 
-            --chip-active: #d1e7dd; 
-            --btn-ghost: #1e3a8a; 
-            --shadow: rgba(0, 0, 0, 0.3); 
+            --bg: #0f172a;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --card: #1e293b;
+            --border: #93c5fd;
+            --brand-600: #2563eb;
+            --brand-700: #1d4ed8;
+            --accent-color: #60a5fa;
+            --secondary-accent: #93c5fd;
+            --chip-bg: #f0f0f0;
+            --chip-border: #1e3a8a;
+            --chip-active: #d1e7dd;
+            --btn-ghost: #1e3a8a;
+            --shadow: rgba(0, 0, 0, 0.3);
             --spinner: #1e3a8a;
             --telegram-bg: linear-gradient(135deg, #0088cc, #00a8e8);
             --telegram-hover: linear-gradient(135deg, #0077b3, #0099d9);
             --telegram-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
             --telegram-hover-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
-            /* צבעים חדשים לצבעוניות */
-            --primary-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6); /* גרדיאנט כחול-סגול */
-            --secondary-gradient: linear-gradient(135deg, #f97316, #ef4444); /* גרדיאנט כתום-אדום */
-            --highlight: #fbbf24; /* צהוב בהיר */
+            --primary-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            --secondary-gradient: linear-gradient(135deg, #f97316, #ef4444);
+            --highlight: #fbbf24;
         }
-        
+
+        /* High Contrast Mode */
+        :root.high-contrast {
+            --bg: #000;
+            --text: #fff;
+            --card: #333;
+            --border: #fff;
+            --highlight: #ff0;
+            --primary-gradient: linear-gradient(135deg, #fff, #ccc);
+            --secondary-gradient: linear-gradient(135deg, #fff, #ccc);
+        }
+
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { 
@@ -118,20 +89,24 @@
             margin: 0 auto; 
             padding: 0 16px; 
         }
-        
+
+        /* Accessibility Enhancements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
         /* Device Detection Classes */
-        body.mobile {
-            --hero-image-width: 70%;
-        }
-        
-        body.tablet {
-            --hero-image-width: 60%;
-        }
-        
-        body.desktop {
-            --hero-image-width: 50%;
-        }
-        
+        body.mobile { --hero-image-width: 70%; }
+        body.tablet { --hero-image-width: 60%; }
+        body.desktop { --hero-image-width: 50%; }
+
         /* Hero Section */
         .hero-section {
             padding: 40px 0;
@@ -139,7 +114,7 @@
             background: var(--primary-gradient);
             border-bottom: 4px solid var(--border);
         }
-        
+
         .hero-image {
             max-width: var(--hero-image-width);
             height: auto;
@@ -147,11 +122,11 @@
             box-shadow: 0 8px 25px var(--shadow);
             transition: transform 0.3s ease;
         }
-        
+
         .hero-image:hover {
             transform: scale(1.05);
         }
-        
+
         /* Section Styling */
         .section {
             padding: 50px 0;
@@ -159,7 +134,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .section::before {
             content: '';
             position: absolute;
@@ -170,27 +145,27 @@
             background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent);
             opacity: 0.5;
         }
-        
+
         .section h2 {
             text-align: center;
             margin-bottom: 30px;
-            color: var(--highlight); /* צהוב בהיר */
+            color: var(--highlight);
             font-size: 28px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
             position: relative;
             z-index: 1;
         }
-        
+
         .section h3 {
             text-align: center;
             margin-bottom: 25px;
-            color: #f97316; /* כתום */
+            color: #f97316;
             font-size: 22px;
             position: relative;
             z-index: 1;
         }
-        
+
         .section p {
             text-align: center;
             margin-bottom: 25px;
@@ -201,7 +176,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         /* Download Button */
         .download-btn {
             display: block;
@@ -219,12 +194,18 @@
             position: relative;
             z-index: 1;
         }
-        
-        .download-btn:hover {
+
+        .download-btn:hover,
+        .download-btn:focus {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 8px 25px rgba(249, 115, 22, 0.6);
+            outline: 2px solid #fff;
         }
-        
+
+        .download-btn:focus {
+            outline-offset: 2px;
+        }
+
         /* Video Embed */
         .video-container {
             position: relative;
@@ -240,11 +221,12 @@
             position: relative;
             z-index: 1;
         }
-        
-        .video-container:hover {
+
+        .video-container:hover,
+        .video-container:focus-within {
             transform: scale(1.02);
         }
-        
+
         .video-container iframe {
             position: absolute;
             top: 0;
@@ -255,11 +237,11 @@
             border-radius: 0;
             background: #000;
         }
-        
+
         body.mobile .video-container {
             padding-bottom: 56.25%;
         }
-        
+
         /* Footer */
         .footer {
             background: var(--primary-gradient);
@@ -269,9 +251,12 @@
             margin-top: 50px;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
         }
-        
-        .footer p { margin: 0; font-size: 16px; }
-        
+
+        .footer p {
+            margin: 0;
+            font-size: 16px;
+        }
+
         /* Mediabox Features */
         .mediabox-features {
             font-family: 'Rubik', 'Assistant', sans-serif;
@@ -281,14 +266,14 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .mediabox-features h2 {
             font-size: 1.5rem;
             margin-bottom: 15px;
             text-align: center;
-            color: var(--highlight); /* צהוב בהיר */
+            color: var(--highlight);
         }
-        
+
         .features {
             list-style: none;
             margin: 0;
@@ -297,7 +282,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
         }
-        
+
         .features li {
             display: flex;
             flex-direction: column;
@@ -312,12 +297,13 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
         }
-        
-        .features li:hover {
+
+        .features li:hover,
+        .features li:focus-within {
             transform: translateY(-5px);
             box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
         }
-        
+
         .features .icon-text {
             display: flex;
             align-items: center;
@@ -326,177 +312,385 @@
             font-weight: 500;
             color: var(--text);
         }
-        
+
         .features .icon {
             font-size: 1.5rem;
             line-height: 1;
             color: var(--highlight);
         }
-        
+
         .features .description {
             font-size: 0.95rem;
             color: var(--muted);
             margin: 0;
             line-height: 1.4;
         }
-        
-        /* התאמות למסכים קטנים יותר */
+
+        /* File Upload Section */
+        .file-upload-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .file-upload-section label {
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .file-upload-section input[type="file"] {
+            padding: 10px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .file-upload-section input[type="file"]:focus {
+            outline: 2px solid var(--highlight);
+            outline-offset: 2px;
+        }
+
+        .file-upload-section button {
+            margin-top: 10px;
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-section button:hover,
+        .file-upload-section button:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4);
+            outline: 2px solid #fff;
+        }
+
+        #file-output {
+            margin-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 15px;
+            background: var(--card);
+            border-radius: 10px;
+            color: var(--text);
+            text-align: center;
+        }
+
+        /* High Contrast Toggle */
+        .contrast-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contrast-toggle:hover,
+        .contrast-toggle:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(249, 115, 22, 0.4);
+            outline: 2px solid #fff;
+        }
+
+        /* Responsive Adjustments */
         @media (max-width: 992px) {
             .features {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (max-width: 480px) {
             .features {
                 grid-template-columns: repeat(1, 1fr);
             }
-            
+
             .section h2 {
                 font-size: 24px;
             }
-            
+
             .section p {
                 font-size: 16px;
             }
-            
+
             .features li {
                 padding: 12px;
             }
-            
+
             .features .icon-text {
                 font-size: 1.1rem;
             }
-            
+
             .features .description {
                 font-size: 0.9rem;
+            }
+
+            .contrast-toggle {
+                top: 10px;
+                left: 10px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Accessibility Focus Styles */
+        a:focus,
+        button:focus,
+        .features li:focus-within,
+        input:focus {
+            outline: 2px solid var(--highlight);
+            outline-offset: 2px;
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            :root:not(.high-contrast) {
+                --bg: #000;
+                --text: #fff;
+                --card: #333;
+                --border: #fff;
+                --highlight: #ff0;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-image:hover,
+            .download-btn:hover,
+            .video-container:hover,
+            .features li:hover,
+            .contrast-toggle:hover,
+            .file-upload-section button:hover {
+                transform: none;
+                transition: none;
             }
         }
     </style>
 </head>
 <body>
-    <section class="hero-section">
+    <a href="#main-content" class="sr-only">דלג לתוכן הראשי</a>
+    <button class="contrast-toggle" aria-label="הפעל מצב ניגודיות גבוהה" onclick="toggleHighContrast()">מצב ניגודיות גבוהה</button>
+    <header class="hero-section" role="banner">
         <div class="container">
-            <img src="https://i.postimg.cc/J0vy2JCJ/d4a474e3-515a-4392-8134-78c77533541f.jpg" alt="לוגו מדיה בוקס" class="hero-image">
+            <img src="https://i.postimg.cc/J0vy2JCJ/d4a474e3-515a-4392-8134-78c77533541f.jpg" alt="לוגו מדיה בוקס" class="hero-image" aria-describedby="hero-description">
+            <p id="hero-description" class="sr-only">לוגו של מדיה בוקס, אפליקציית בידור חינמית המציעה סרטים, סדרות, מוזיקה ועוד.</p>
         </div>
-    </section>
-    
-    <section class="section">
-<div class="container">
-    <h2>מה זה מדיה בוקס?</h2>
-    <p>
-        מדיה בוקס היא אפליקציית בידור חדשנית לצפייה ישירה בסדרות, סרטים ותכנים מכל רחבי הרשת וערוצי טלגרם, והכול במקום אחד נוח.<br>
-        האפליקציה מותאמת למכשירי אנדרואיד – סמארטפונים, טאבלטים ו-Android TV – ומציעה חוויית צפייה פשוטה, מהירה וללא מאמץ.<br>
-        עם ממשק ידידותי, איכות צפייה גבוהה ואפשרויות גישה מגוונות, מדיה בוקס הופכת כל מכשיר למסך קולנוע פרטי קטן, זמין בכל זמן ובכל מקום.<br>
-        <br>
-        <strong>מדיה בוקס משמשת כמנוע חיפוש לתכנים ואינה מאחסנת או מפיצה אותם בעצמה – היא רק מרכזת עבור המשתמשים קישורים זמינים ממקורות חיצוניים ברשת.</strong>
-    </p>
-</div>
-        </div>
-    </section>
-    
-    <section class="section">
-        <div class="container">
-            <h2>מה מכילה מדיה בוקס?</h2>
-            <section class="mediabox-features">
-                <ul class="features">
-                    <li>
-                        <span class="icon-text"><span class="icon">📺</span>ערוצי עידן+ מורחב</span>
-                        <p class="description">גישה לערוצי עידן+ מורחבים, כולל תוכן טלוויזיוני חי ומגוון באיכות גבוהה ללא צורך במנוי.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">🇮🇱</span>ישראלי VOD</span>
-                        <p class="description">ספריית VOD ישראלית עשירה עם סרטים, סדרות ותוכן מקומי פופולרי לצפייה על פי דרישה.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">▶️</span>צפייה ישירה</span>
-                        <p class="description">צפייה ישירה בסרטים וסדרות ללא הורדה, עם זרימה מהירה ואיכות וידאו גבוהה ממקורות שונים.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">🔗</span>חיבור לטלמדיה</span>
-                        <p class="description">חיבור לטלגרם למציאת תכנים נוספים מקבוצות מדיה, משלב בין טלגרם ומדיה לחווייה אחודה.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">⚡</span>Real-Debrid</span>
-                        <p class="description">תמיכה בשירות Real-Debrid להורדות מהירות ואיכותיות יותר, עם גישה לקישורים פרימיום.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">🎬</span>סרטים</span>
-                        <p class="description">מבחר עצום של סרטים מכל הז'אנרים, כולל חדשים וקלאסיים, זמינים לצפייה מיידית.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">📺</span>סדרות</span>
-                        <p class="description">סדרות טלוויזיה פופולריות מכל העולם, עם עונות מלאות ועדכונים שוטפים.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">🎵</span>מוזיקה</span>
-                        <p class="description">ספריית מוזיקה מגוונת עם אלבומים, שירים ואמנים, זמינה להשמעה מיידית בכל זמן.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">🧒</span>תכני ילדים</span>
-                        <p class="description"> תכנים בטוחים ומבדרים לילדים, כולל סרטי אנימציה מדובבים וסדרות חינוכיות.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">🌍</span>ערוצים מהעולם (IPTV)</span>
-                        <p class="description">ערוצי IPTV בינלאומיים חיים ממדינות שונות, כולל חדשות ובידור גלובלי.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">📻</span>ערוצי רדיו</span>
-                        <p class="description">מבחר תחנות רדיו מקומיות ובינלאומיות, עם מוזיקה, חדשות ותוכניות שידור חיות.</p>
-                    </li>
-                    <li>
-                        <span class="icon-text"><span class="icon">🎙️</span>פודקאסטים</span>
-                        <p class="description">פודקאסטים פופולריים בנושאים מגוונים, זמינים להאזנה בכל זמן ומקום.</p>
-                    </li>
-                </ul>
-            </section>
-        </div>
-    </section>
-    
-    <section class="section">
-        <div class="container">
-            <h2>איך מתקינים?</h2>
-            <p>לחצו על הכפתור להורדה והתקנה.</p>
-            <a href="http://tiny.cc/mboxil" class="download-btn" target="_blank">
-                <i class="fas fa-download"></i> הורד עכשיו
-            </a>
-            <p style="margin-top: 20px;">למשתמשי Downloader: הזן קוד 31560.</p>
-            <div class="video-container">
-                <iframe src="https://player.vimeo.com/video/714168877?background=0&transparent=0&autopause=0&autoplay=0&byline=0&portrait=0&title=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </header>
+
+    <main id="main-content">
+        <section class="section" aria-labelledby="about-heading">
+            <div class="container">
+                <h2 id="about-heading">מה זה מדיה בוקס?</h2>
+                <p>
+                    מדיה בוקס היא אפליקציית בידור חדשנית לצפייה ישירה בסדרות, סרטים ותכנים מכל רחבי הרשת וערוצי טלגרם, והכול במקום אחד נוח.<br>
+                    האפליקציה מותאמת למכשירי אנדרואיד – סמארטפונים, טאבלטים ו-Android TV – ומציעה חוויית צפייה פשוטה, מהירה וללא מאמץ.<br>
+                    עם ממשק ידידותי, איכות צפייה גבוהה ואפשרויות גישה מגוונות, מדיה בוקס הופכת כל מכשיר למסך קולנוע פרטי קטן, זמין בכל זמן ובכל מקום.<br>
+                    <br>
+                    <strong>מדיה בוקס משמשת כמנוע חיפוש לתכנים ואינה מאחסנת או מפיצה אותם בעצמה – היא רק מרכזת עבור המשתמשים קישורים זמינים ממקורות חיצוניים ברשת.</strong>
+                </p>
             </div>
-        </div>
-    </section>
-    
-    <section class="section">
-        <div class="container">
-            <h2>איך מעדכנים לגרסה עדכנית?</h2>
-            <p>עקוב אחרי ההוראות בהתקנה מחדש דרך הקישור לעיל, או בדוק עדכונים בתוך האפליקציה עצמה.</p>
-            <div class="video-container">
-                <iframe src="https://player.vimeo.com/video/714170680?background=0&transparent=0&autopause=0&autoplay=0&byline=0&portrait=0&title=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </section>
+
+        <section class="section" aria-labelledby="features-heading">
+            <div class="container">
+                <h2 id="features-heading">מה מכילה מדיה בוקס?</h2>
+                <section class="mediabox-features">
+                    <ul class="features" role="list">
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">📺</span>ערוצי עידן+ מורחב</span>
+                            <p class="description">גישה לערוצי עידן+ מורחבים, כולל תוכן טלוויזיוני חי ומגוון באיכות גבוהה ללא צורך במנוי.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">🇮🇱</span>ישראלי VOD</span>
+                            <p class="description">ספריית VOD ישראלית עשירה עם סרטים, סדרות ותוכן מקומי פופולרי לצפייה על פי דרישה.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">▶️</span>צפייה ישירה</span>
+                            <p class="description">צפייה ישירה בסרטים וסדרות ללא הורדה, עם זרימה מהירה ואיכות וידאו גבוהה ממקורות שונים.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">🔗</span>חיבור לטלמדיה</span>
+                            <p class="description">חיבור לטלגרם למציאת תכנים נוספים מקבוצות מדיה, משלב בין טלגרם ומדיה לחווייה אחודה.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">⚡</span>Real-Debrid</span>
+                            <p class="description">תמיכה בשירות Real-Debrid להורדות מהירות ואיכותיות יותר, עם גישה לקישורים פרימיום.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">🎬</span>סרטים</span>
+                            <p class="description">מבחר עצום של סרטים מכל הז'אנרים, כולל חדשים וקלאסיים, זמינים לצפייה מיידית.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">📺</span>סדרות</span>
+                            <p class="description">סדרות טלוויזיה פופולריות מכל העולם, עם עונות מלאות ועדכונים שוטפים.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">🎵</span>מוזיקה</span>
+                            <p class="description">ספריית מוזיקה מגוונת עם אלבומים, שירים ואמנים, זמינה להשמעה מיידית בכל זמן.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">🧒</span>תכני ילדים</span>
+                            <p class="description">תכנים בטוחים ומבדרים לילדים, כולל סרטי אנימציה מדובבים וסדרות חינוכיות.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">🌍</span>ערוצים מהעולם (IPTV)</span>
+                            <p class="description">ערוצי IPTV בינלאומיים חיים ממדינות שונות, כולל חדשות ובידור גלובלי.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">📻</span>ערוצי רדיו</span>
+                            <p class="description">מבחר תחנות רדיו מקומיות ובינלאומיות, עם מוזיקה, חדשות ותוכניות שידור חיות.</p>
+                        </li>
+                        <li role="listitem" tabindex="0">
+                            <span class="icon-text"><span class="icon" aria-hidden="true">🎙️</span>פודקאסטים</span>
+                            <p class="description">פודקאסטים פופולריים בנושאים מגוונים, זמינים להאזנה בכל זמן ומקום.</p>
+                        </li>
+                    </ul>
+                </section>
             </div>
-        </div>
-    </section>
-    
-    <section class="section">
-        <div class="container">
-            <h2>מה זה טלמדיה ולמה כדאי להתחבר?</h2>
-            <p><strong>טלגרם + מדיה = טלמדיה</strong></p>
-            <p>בטלגרם יש המון תוכן והמון קבוצות מדיה. כאשר מתחברים עם חשבון הטלגרם דרך מדיה בוקס, בעת חיפוש באריחי במדיה בוקס – יוצגו מקורות מתוך קבוצות הטלמדיה אליהן אתה מחובר (Moviedb).</p>
-            <h3>איך מתחברים לטלמדיה?</h3>
-            <p>טרם החיבור לטלמדיה במדיה בוקס, יש ליצור חשבון טלגרם.</p>
-            <div class="video-container">
-                <iframe src="https://player.vimeo.com/video/845571390?background=0&transparent=0&autopause=0&autoplay=0&byline=0&portrait=0&title=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </section>
+
+        <section class="section" aria-labelledby="install-heading">
+            <div class="container">
+                <h2 id="install-heading">איך מתקינים?</h2>
+                <p>לחצו על הכפתור להורדה והתקנה.</p>
+                <a href="http://tiny.cc/mboxil" class="download-btn" target="_blank" aria-label="הורד את אפליקציית מדיה בוקס עכשיו" id="download-app">
+                    <i class="fas fa-download" aria-hidden="true"></i> הורד עכשיו
+                </a>
+                <p style="margin-top: 20px;">למשתמשי Downloader: הזן קוד 31560.</p>
+                <div class="video-container">
+                    <iframe src="https://player.vimeo.com/video/714168877?background=0&transparent=0&autopause=0&autoplay=0&byline=0&portrait=0&title=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="סרטון הדרכה להתקנת מדיה בוקס"></iframe>
+                </div>
             </div>
-        </div>
-    </section>
-    
-    <footer class="footer">
+        </section>
+
+        <section class="section" aria-labelledby="update-heading">
+            <div class="container">
+                <h2 id="update-heading">איך מעדכנים לגרסה עדכנית?</h2>
+                <p>עקוב אחרי ההוראות בהתקנה מחדש דרך הקישור לעיל, או בדוק עדכונים בתוך האפליקציה עצמה.</p>
+                <div class="video-container">
+                    <iframe src="https://player.vimeo.com/video/714170680?background=0&transparent=0&autopause=0&autoplay=0&byline=0&portrait=0&title=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="סרטון הדרכה לעדכון מדיה בוקס"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="telemedia-heading">
+            <div class="container">
+                <h2 id="telemedia-heading">מה זה טלמדיה ולמה כדאי להתחבר?</h2>
+                <p><strong>טלגרם + מדיה = טלמדיה</strong></p>
+                <p>בטלגרם יש המון תוכן והמון קבוצות מדיה. כאשר מתחברים עם חשבון הטלגרם דרך מדיה בוקס, בעת חיפוש באריחי במדיה בוקס – יוצגו מקורות מתוך קבוצות הטלמדיה אליהן אתה מחובר (Moviedb).</p>
+                <h3 id="telemedia-connect-heading">איך מתחברים לטלמדיה?</h3>
+                <p>טרם החיבור לטלמדיה במדיה בוקס, יש ליצור חשבון טלגרם.</p>
+                <div class="video-container">
+                    <iframe src="https://player.vimeo.com/video/845571390?background=0&transparent=0&autopause=0&autoplay=0&byline=0&portrait=0&title=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="סרטון הדרכה לחיבור לטלמדיה"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="section file-upload-section" aria-labelledby="file-upload-heading">
+            <div class="container">
+                <h2 id="file-upload-heading">העלאת קובץ XLSX</h2>
+                <p>העלה קובץ XLSX כדי לעבד אותו ולהציג את התוכן כטקסט CSV.</p>
+                <label for="file-input" class="sr-only">בחר קובץ XLSX להעלאה</label>
+                <input type="file" id="file-input" accept=".xlsx" aria-describedby="file-upload-description">
+                <p id="file-upload-description" class="sr-only">בחר קובץ XLSX לעיבוד והצגת התוכן שלו כטקסט בפורמט CSV.</p>
+                <button onclick="processFile()" aria-label="עבד את הקובץ שהועלה">עבד קובץ</button>
+                <div id="file-output" role="region" aria-live="polite"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <p>&copy; 2025 מדיה בוקס - כל הזכויות שמורות</p>
         </div>
     </footer>
-    
+
     <script>
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+
+        function processFile() {
+            const fileInput = document.getElementById('file-input');
+            const outputDiv = document.getElementById('file-output');
+            const file = fileInput.files[0];
+            if (!file) {
+                outputDiv.textContent = 'אנא בחר קובץ להעלאה.';
+                outputDiv.setAttribute('aria-live', 'assertive');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const base64Data = e.target.result.split(',')[1];
+                    gk_isXlsx = true;
+                    gk_xlsxFileLookup[file.name] = true;
+                    gk_fileData[file.name] = base64Data;
+                    const csvOutput = loadFileData(file.name);
+                    if (csvOutput) {
+                        outputDiv.textContent = csvOutput;
+                    } else {
+                        outputDiv.textContent = 'שגיאה בעיבוד הקובץ. אנא נסה שוב.';
+                    }
+                    outputDiv.setAttribute('aria-live', 'polite');
+                } catch (error) {
+                    outputDiv.textContent = 'שגיאה בעיבוד הקובץ: ' + error.message;
+                    outputDiv.setAttribute('aria-live', 'assertive');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function toggleHighContrast() {
+            document.documentElement.classList.toggle('high-contrast');
+            const toggleButton = document.querySelector('.contrast-toggle');
+            toggleButton.setAttribute('aria-label', document.documentElement.classList.contains('high-contrast') ? 'כבה מצב ניגודיות גבוהה' : 'הפעל מצב ניגודיות גבוהה');
+            toggleButton.textContent = document.documentElement.classList.contains('high-contrast') ? 'כבה ניגודיות גבוהה' : 'מצב ניגודיות גבוהה';
+        }
+
         ;(() => {
             // Device Detection
             function detectDevice() {
@@ -531,6 +725,18 @@
             
             window.addEventListener('resize', applyDeviceClass);
             window.addEventListener('orientationchange', applyDeviceClass);
+
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'd' && e.altKey) {
+                    document.getElementById('download-app').focus();
+                    e.preventDefault();
+                }
+                if (e.key === 'c' && e.altKey) {
+                    toggleHighContrast();
+                    e.preventDefault();
+                }
+            });
             
             // INIT
             applyDeviceClass();
