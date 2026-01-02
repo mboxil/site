@@ -51,18 +51,34 @@
         }
         .contrast-toggle:hover { background: var(--border); color: var(--bg); }
 
-        /* Hero */
-        .hero-section {
-            padding: 50px 0; text-align: center;
-            background: radial-gradient(circle at center, #1e293b 0%, #0b1120 100%);
-            border-bottom: 2px solid rgba(56, 189, 248, 0.2);
-        }
-        .hero-image {
-            max-width: 300px; width: 60%; height: auto; border-radius: 20px;
-            box-shadow: 0 10px 30px var(--shadow); transition: 0.4s;
-        }
-        .hero-image:hover { transform: scale(1.03); }
+      /* עדכון ספציפי ללוגו ול-Hero */
+.hero-section {
+    padding: 80px 0; /* הגדלת הריווח למעלה ולמטה */
+    text-align: center;
+    background: radial-gradient(circle at center, #1e293b 0%, #0b1120 100%);
+    border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+}
 
+.hero-image {
+    max-width: 500px; /* הגדלה משמעותית */
+    width: 90%;      /* יתפוס כמעט את כל הרוחב בטלפונים קטנים */
+    height: auto;
+    border-radius: 25px;
+    /* הוספת הילה כחולה סביב הלוגו */
+    filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.4));
+    transition: all 0.5s ease-in-out;
+}
+
+.hero-image:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.6));
+}
+
+/* התאמה למובייל - שהלוגו לא יברח מהמסך */
+@media (max-width: 768px) {
+    .hero-section { padding: 40px 0; }
+    .hero-image { max-width: 350px; }
+}
         /* Sections */
         .section { padding: 60px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .section h2 {
