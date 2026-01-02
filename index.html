@@ -10,7 +10,6 @@
     
     <style>
         :root { 
-            /* פלטת אולד-סקול קולנוע פרימיום */
             --bg: #0a0a0a;
             --text: #ffffff;
             --muted: #a1a1aa; 
@@ -27,14 +26,14 @@
         html { scroll-behavior: smooth; }
         body { 
             margin: 0; 
-            font-family: 'Rubik', 'Assistant', sans-serif; 
+            font-family: 'Rubik', sans-serif; 
             background: var(--bg); 
             color: var(--text); 
             line-height: 1.6; 
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
-        /* Hero Section - לוגו גדול וזוהר */
+        /* Hero Section */
         .hero-section {
             padding: 80px 0;
             text-align: center;
@@ -58,17 +57,25 @@
             box-shadow: 0 0 40px var(--gold-glow);
         }
 
-        /* Section Styling */
-        .section { padding: 70px 0; border-bottom: 1px solid #1a1a1a; }
-        .section h2 { text-align: center; margin-bottom: 45px; color: var(--highlight); font-size: 34px; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .section h3 { text-align: center; color: var(--highlight); margin-top: 35px; font-size: 26px; }
-        .section p { text-align: center; margin-bottom: 30px; font-size: 20px; max-width: 900px; margin-left: auto; margin-right: auto; color: #f3f4f6; }
+        .section { padding: 60px 0; border-bottom: 1px solid #1a1a1a; }
+        
+        /* כותרות עם אפקט Glow */
+        .section h2 { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            color: var(--highlight); 
+            font-size: 32px; 
+            font-weight: 700; 
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5); /* Glow לכותרת */
+        }
+        
+        .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
 
-        /* כרטיסיות משודרגות - לא חיוורות */
+        /* כרטיסיות */
         .features {
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
-            gap: 20px;
+            gap: 15px;
             list-style: none; 
             padding: 0; 
             margin: 0;
@@ -79,86 +86,68 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center;
-            gap: 12px; 
-            padding: 30px 20px; 
+            padding: 25px 15px; 
             border-radius: 20px; 
-            border: 1px solid rgba(245, 158, 11, 0.4); /* מסגרת זהב קבועה */
-            background: linear-gradient(145deg, #1c1c1c, #111111); /* עומק פנימי */
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: linear-gradient(145deg, #1c1c1c, #111111);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
         }
         
         .features li:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: var(--gold-bright);
-            background: linear-gradient(145deg, #262626, #171717);
-            box-shadow: 0 12px 35px var(--gold-glow);
+            box-shadow: 0 10px 30px var(--gold-glow);
         }
 
         .features .icon { 
-            font-size: 2.8rem; 
+            font-size: 2.4rem; 
             color: var(--gold-bright); 
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
-            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.3));
         }
         
-        .features li:hover .icon {
-            transform: scale(1.15) rotate(3deg);
-            filter: drop-shadow(0 0 15px var(--gold-bright));
-        }
-
         .features .icon-text { 
-            font-size: 1.35rem; 
+            font-size: 1.25rem; 
             font-weight: 700; 
-            color: var(--gold-bright); /* כותרת מוזהבת */
-            margin-bottom: 6px;
+            color: var(--gold-bright);
+            margin-bottom: 4px;
         }
 
         .features .description { 
-            font-size: 1rem; 
-            color: #e5e7eb; 
+            font-size: 0.9rem; 
+            color: #d1d5db; 
             margin: 0; 
-            line-height: 1.5; 
+            line-height: 1.3; 
         }
 
-        /* כפתור הורדה זהב בוהק */
+        /* כפתור הורדה זהב */
         .download-btn {
-            display: block; max-width: 340px; margin: 40px auto;
+            display: block; max-width: 300px; margin: 40px auto;
             background: var(--secondary-gradient); color: #000;
-            padding: 20px 40px; text-align: center; border-radius: 60px;
-            text-decoration: none; font-weight: 800; font-size: 1.5rem;
+            padding: 18px 30px; text-align: center; border-radius: 50px;
+            text-decoration: none; font-weight: 800; font-size: 1.4rem;
             box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-            text-transform: uppercase;
+            transition: 0.4s;
         }
         
         .download-btn:hover {
-            transform: scale(1.07);
-            box-shadow: 0 0 40px var(--gold-bright);
-            border-color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 35px var(--gold-bright);
         }
 
-        /* Video Container */
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-            max-width: 850px; margin: 40px auto; border-radius: 25px;
+            max-width: 850px; margin: 30px auto; border-radius: 25px;
             box-shadow: 0 20px 50px var(--shadow); border: 2px solid #262626;
         }
         .video-container iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
 
-        .footer { padding: 50px 0; background: #000; text-align: center; border-top: 3px solid var(--border); color: var(--muted); }
+        .footer { padding: 40px 0; background: #000; text-align: center; border-top: 3px solid var(--border); color: var(--muted); }
 
-        /* Responsive */
         @media (max-width: 992px) { .features { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { 
-            .features { grid-template-columns: 1fr; gap: 20px; }
-            .section h2 { font-size: 28px; }
-            .hero-image { max-width: 380px; }
-            .download-btn { width: 100%; font-size: 1.3rem; }
-        }
+        @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -172,97 +161,39 @@
     <main class="container">
         <section class="section">
             <h2>מה זה מדיה בוקס?</h2>
-            <p>
-                מדיה בוקס היא אפליקציית בידור חדשנית לצפייה ישירה בסדרות, סרטים ותכנים מכל רחבי הרשת וערוצי טלגרם, והכול במקום אחד נוח.<br>
-                האפליקציה מותאמת למכשירי אנדרואיד – סמארטפונים, טאבלטים ו-Android TV – ומציעה חוויית צפייה פשוטה, מהירה וללא מאמץ.<br><br>
-                <strong>מדיה בוקס משמשת כמנוע חיפוש לתכנים ואינה מאחסנת או מפיצה אותם בעצמה – היא רק מרכזת עבור המשתמשים קישורים זמינים.</strong>
-            </p>
+            <p>אפליקציית בידור מתקדמת לצפייה ישירה בסדרות, סרטים ותכנים מכל רחבי הרשת במקום אחד נוח, מותאמת לכל מכשירי האנדרואיד</p>
         </section>
 
         <section class="section">
             <h2>מה מכילה מדיה בוקס?</h2>
             <ul class="features">
-                <li>
-                    <span class="icon">📺</span>
-                    <span class="icon-text">ערוצי עידן+ מורחב</span>
-                    <p class="description">גישה לערוצי עידן+ מורחבים בשידור חי ובאיכות גבוהה.</p>
-                </li>
-                <li>
-                    <span class="icon">🇮🇱</span>
-                    <span class="icon-text">ישראלי VOD</span>
-                    <p class="description">ספריית VOD ישראלית עשירה עם סרטים וסדרות מקומיות.</p>
-                </li>
-                <li>
-                    <span class="icon">▶️</span>
-                    <span class="icon-text">צפייה ישירה</span>
-                    <p class="description">צפייה ישירה בסרטים וסדרות ללא הורדה ממגוון מקורות.</p>
-                </li>
-                <li>
-                    <span class="icon">🔗</span>
-                    <span class="icon-text">חיבור לטלמדיה</span>
-                    <p class="description">חיבור לטלגרם למציאת תכנים נוספים מקבוצות המדיה שלכם.</p>
-                </li>
-                <li>
-                    <span class="icon">⚡</span>
-                    <span class="icon-text">Real-Debrid</span>
-                    <p class="description">תמיכה בשירות Real-Debrid לצפייה באיכות פרימיום ללא תקיעות.</p>
-                </li>
-                <li>
-                    <span class="icon">🎬</span>
-                    <span class="icon-text">סרטים</span>
-                    <p class="description">מבחר עצום של סרטים מכל הז'אנרים, כולל הלהיטים הכי חדשים.</p>
-                </li>
-                <li>
-                    <span class="icon">📺</span>
-                    <span class="icon-text">סדרות</span>
-                    <p class="description">סדרות טלוויזיה פופולריות עם עונות מלאות ועדכונים יומיים.</p>
-                </li>
-                <li>
-                    <span class="icon">🎵</span>
-                    <span class="icon-text">מוזיקה</span>
-                    <p class="description">ספריית מוזיקה מגוונת להשמעה מיידית של אלבומים ושירים.</p>
-                </li>
-                <li>
-                    <span class="icon">🧒</span>
-                    <span class="icon-text">תכני ילדים</span>
-                    <p class="description">תכנים בטוחים לילדים, כולל סרטי אנימציה וסדרות מדובבות.</p>
-                </li>
-                <li>
-                    <span class="icon">🌍</span>
-                    <span class="icon-text">ערוצי עולם (IPTV)</span>
-                    <p class="description">ערוצי IPTV בינלאומיים חיים ממדינות שונות בכל העולם.</p>
-                </li>
-                <li>
-                    <span class="icon">📻</span>
-                    <span class="icon-text">ערוצי רדיו</span>
-                    <p class="description">מבחר תחנות רדיו מקומיות ובינלאומיות בשידור חי.</p>
-                </li>
-                <li>
-                    <span class="icon">🎙️</span>
-                    <span class="icon-text">פודקאסטים</span>
-                    <p class="description">האזנה לפודקאסטים הפופולריים ביותר בכל נושא שתרצו.</p>
-                </li>
+                <li><span class="icon">📺</span><span class="icon-text">ערוצי עידן+</span><p class="description">שידורי טלוויזיה חיים</p></li>
+                <li><span class="icon">🇮🇱</span><span class="icon-text">ישראלי VOD</span><p class="description">תוכן מקומי עשיר</p></li>
+                <li><span class="icon">▶️</span><span class="icon-text">צפייה ישירה</span><p class="description">ללא צורך בהורדה</p></li>
+                <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור מלא לטלגרם</p></li>
+                <li><span class="icon">⚡</span><span class="icon-text">Real-Debrid</span><p class="description">צפייה באיכות פרימיום</p></li>
+                <li><span class="icon">🎬</span><span class="icon-text">סרטים</span><p class="description">אלפי סרטים מכל ז'אנר</p></li>
+                <li><span class="icon">📺</span><span class="icon-text">סדרות</span><p class="description">עונות מלאות של כל הסדרות</p></li>
+                <li><span class="icon">🎵</span><span class="icon-text">מוזיקה</span><p class="description">אלבומים ושירים פופולריים</p></li>
+                <li><span class="icon">🧒</span><span class="icon-text">ילדים</span><p class="description">תוכן בטוח ומדובב</p></li>
+                <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV גלובליים</p></li>
+                <li><span class="icon">📻</span><span class="icon-text">רדיו</span><p class="description">תחנות מכל רחבי העולם</p></li>
+                <li><span class="icon">🎙️</span><span class="icon-text">פודקאסטים</span><p class="description">ההסכתים המובילים ברשת</p></li>
             </ul>
         </section>
 
         <section class="section" style="text-align: center;">
-            <div class="container">
-                <h2>איך מתקינים?</h2>
-                <p>לחצו על הכפתור להורדה והתקנה של האפליקציה.</p>
-                <a href="https://tiny.cc/mboxil" class="download-btn">
-                    <i class="fas fa-download"></i> הורד עכשיו
-                </a>
-                <p style="margin-top: 15px;">למשתמשי Downloader: הזן קוד <strong>31560</strong>.</p>
-                <div class="video-container">
-                    <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
-                </div>
+            <h2>התקנה והורדה</h2>
+            <a href="https://tiny.cc/mboxil" class="download-btn">הורד עכשיו</a>
+            <p>קוד Downloader: <strong>31560</strong></p>
+            <div class="video-container">
+                <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
             </div>
         </section>
 
         <section class="section">
             <h2>חיבור לטלמדיה</h2>
-            <p><strong>טלגרם + מדיה = טלמדיה</strong></p>
-            <p>חברו את חשבון הטלגרם שלכם למדיה בוקס ותיהנו מגישה ישירה לכל קבוצות התוכן המחוברות שלכם.</p>
+            <p>חברו את חשבון הטלגרם שלכם ותיהנו מגישה ישירה לקבוצות המדיה שלכם</p>
             <div class="video-container">
                 <iframe src="https://player.vimeo.com/video/845571390" allowfullscreen></iframe>
             </div>
@@ -270,7 +201,7 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; 2026 מדיה בוקס - חוויית הצפייה שלך מתחילה כאן</p>
+        <p>&copy; 2026 מדיה בוקס - כל הזכויות שמורות</p>
     </footer>
 
 </body>
