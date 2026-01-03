@@ -33,6 +33,33 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
+        /* כפתור שיתוף צף עליון */
+        .share-floating-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--secondary-gradient);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 20px var(--gold-glow);
+            cursor: pointer;
+            z-index: 10000;
+            transition: 0.3s;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .share-floating-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--gold-bright);
+        }
+
         /* Hero Section */
         .hero-section {
             padding: 80px 0;
@@ -59,14 +86,13 @@
 
         .section { padding: 60px 0; border-bottom: 1px solid #1a1a1a; }
         
-        /* כותרות עם אפקט Glow */
         .section h2 { 
             text-align: center; 
             margin-bottom: 40px; 
             color: var(--highlight); 
             font-size: 32px; 
             font-weight: 700; 
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5); /* Glow לכותרת */
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
         }
         
         .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
@@ -122,7 +148,7 @@
             line-height: 1.3; 
         }
 
-        /* כפתור הורדה זהב */
+        /* כפתור הורדה */
         .download-btn {
             display: block; max-width: 300px; margin: 40px auto;
             background: var(--secondary-gradient); color: #000;
@@ -147,10 +173,18 @@
         .footer { padding: 40px 0; background: #000; text-align: center; border-top: 3px solid var(--border); color: var(--muted); }
 
         @media (max-width: 992px) { .features { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { 
+            .features { grid-template-columns: 1fr; }
+            .share-floating-btn { padding: 8px 15px; font-size: 14px; top: 15px; left: 15px; }
+        }
     </style>
 </head>
 <body>
+
+    <div class="share-floating-btn" onclick="shareSite()">
+        <i class="fas fa-share-alt"></i>
+        <span>שיתוף</span>
+    </div>
 
     <header class="hero-section">
         <div class="container">
@@ -166,16 +200,16 @@
 
         <section class="section">
             <h2>מה מכילה מדיה בוקס?</h2>
-<ul class="features">
-    <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי עשיר</p></li>
-    <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי סרטים ועונות מלאות לצפייה</p></li>
-    <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">איכות 4K עם Real-Debrid וצפייה ישירה</p></li>
-    <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור מלא לקבוצות התוכן בטלגרם</p></li>
-    <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">תוכן בטוח, מדובב ומותאם לקטנטנים</p></li>
-    <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV וספורט מכל הגלובוס</p></li>
-    <li><span class="icon">📻</span><span class="icon-text">רדיו ופודקאסטים</span><p class="description">תחנות מוזיקה והסכתים מובילים</p></li>
-    <li><span class="icon">📺</span><span class="icon-text">חוויית סטרימינג</span><p class="description">מותאם באופן מושלם לסטרימרים ושלט רחוק</p></li>
-</ul>
+            <ul class="features">
+                <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי עשיר</p></li>
+                <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי סרטים ועונות מלאות לצפייה</p></li>
+                <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">איכות 4K עם Real-Debrid וצפייה ישירה</p></li>
+                <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור מלא לקבוצות התוכן בטלגרם</p></li>
+                <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">תוכן בטוח, מדובב ומותאם לקטנטנים</p></li>
+                <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV וספורט מכל הגלובוס</p></li>
+                <li><span class="icon">📻</span><span class="icon-text">רדיו ופודקאסטים</span><p class="description">תחנות מוזיקה והסכתים מובילים</p></li>
+                <li><span class="icon">📺</span><span class="icon-text">חוויית סטרימינג</span><p class="description">מותאם באופן מושלם לסטרימרים ושלט רחוק</p></li>
+            </ul>
         </section>
 
         <section class="section" style="text-align: center;">
@@ -199,6 +233,37 @@
     <footer class="footer">
         <p>&copy; 2026 מדיה בוקס - כל הזכויות שמורות</p>
     </footer>
+
+    <script>
+    function shareSite() {
+        const shareData = {
+            title: 'מדיה בוקס',
+            text: 'מדיה בוקס - האפליקציה המושלמת לסטרימר שלך!',
+            url: window.location.href
+        };
+
+        if (navigator.share) {
+            navigator.share(shareData).catch(() => copyToClipboard());
+        } else {
+            copyToClipboard();
+        }
+    }
+
+    function copyToClipboard() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            alert("הקישור הועתק ללוח! ניתן להדביק ולשלוח לחברים.");
+        }).catch(() => {
+            const el = document.createElement('textarea');
+            el.value = url;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            alert("הקישור הועתק!");
+        });
+    }
+    </script>
 
 </body>
 </html>
