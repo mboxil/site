@@ -134,7 +134,7 @@
             filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.3));
         }
         
-        .features .icon-text { 
+        .features li .icon-text { 
             font-size: 1.25rem; 
             font-weight: 700; 
             color: var(--gold-bright);
@@ -237,14 +237,11 @@
     <script>
     function shareSite() {
         const shareLink = "https://tiny.cc/mboxsite";
-        const shareData = {
-            title: 'מדיה בוקס',
-            text: 'מדיה בוקס - האפליקציה המושלמת לסטרימר שלך!',
-            url: shareLink
-        };
 
         if (navigator.share) {
-            navigator.share(shareData).catch(() => copyToClipboard(shareLink));
+            navigator.share({
+                url: shareLink
+            }).catch(() => copyToClipboard(shareLink));
         } else {
             copyToClipboard(shareLink);
         }
@@ -252,7 +249,7 @@
 
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
-            alert("הקישור הועתק ללוח! ניתן להדביק ולשלוח לחברים: " + text);
+            alert("הכתובת הועתקה ללוח!");
         }).catch(() => {
             const el = document.createElement('textarea');
             el.value = text;
@@ -260,7 +257,7 @@
             el.select();
             document.execCommand('copy');
             document.body.removeChild(el);
-            alert("הקישור הועתק!");
+            alert("הכתובת הועתקה!");
         });
     }
     </script>
