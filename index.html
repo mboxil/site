@@ -33,7 +33,7 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
-        /* כפתור שיתוף צף עליון */
+        /* כפתור שיתוף צף */
         .share-floating-btn {
             position: fixed;
             top: 20px;
@@ -78,12 +78,6 @@
             filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.2));
         }
 
-        .hero-image:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0 0 25px var(--gold-glow));
-            box-shadow: 0 0 40px var(--gold-glow);
-        }
-
         .section { padding: 60px 0; border-bottom: 1px solid #1a1a1a; }
         
         .section h2 { 
@@ -96,6 +90,26 @@
         }
         
         .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
+
+        /* תיבת Downloader מודגשת */
+        .downloader-box {
+            background: #171717;
+            border: 2px dashed var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 400px;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+        }
+        .downloader-box strong { 
+            font-size: 2.2rem; 
+            color: var(--gold-bright); 
+            letter-spacing: 3px; 
+            display: block;
+            margin-top: 10px;
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
 
         /* כרטיסיות */
         .features {
@@ -116,22 +130,19 @@
             border-radius: 20px; 
             border: 1px solid rgba(245, 158, 11, 0.4);
             background: linear-gradient(145deg, #1c1c1c, #111111);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.4s;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
         }
         
         .features li:hover {
             transform: translateY(-8px);
             border-color: var(--gold-bright);
-            box-shadow: 0 10px 30px var(--gold-glow);
         }
 
         .features .icon { 
             font-size: 2.4rem; 
             color: var(--gold-bright); 
             margin-bottom: 10px;
-            filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.3));
         }
         
         .features li .icon-text { 
@@ -144,7 +155,6 @@
         .features .description { 
             font-size: 0.9rem; 
             color: #d1d5db; 
-            margin: 0; 
             line-height: 1.3; 
         }
 
@@ -158,11 +168,6 @@
             transition: 0.4s;
         }
         
-        .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 35px var(--gold-bright);
-        }
-
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
             max-width: 850px; margin: 30px auto; border-radius: 25px;
@@ -195,7 +200,9 @@
     <main class="container">
         <section class="section">
             <h2>מה זה מדיה בוקס?</h2>
-            <p>אפליקציית בידור מתקדמת לצפייה ישירה בסדרות, סרטים ותכנים מכל רחבי הרשת במקום אחד נוח, מותאמת לכל מכשירי האנדרואיד</p>
+            <p>מדיה בוקס הינה ממשק משתמש (Client) חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת ל-Android TV, טאבלטים וסמארטפונים.
+            <br><br>
+            <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. השירות אינו מאחסן, מארח או מפיץ תכני וידאו באופן עצמאי.</strong></p>
         </section>
 
         <section class="section">
@@ -205,7 +212,7 @@
                 <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי סרטים ועונות מלאות לצפייה</p></li>
                 <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">איכות 4K עם Real-Debrid וצפייה ישירה</p></li>
                 <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור מלא לקבוצות התוכן בטלגרם</p></li>
-                <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">תוכן בטוח, מדובב ומותאם לקטנטנים</p></li>
+                <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">סרטים וסדרות לילדים</p></li>
                 <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV וספורט מכל הגלובוס</p></li>
                 <li><span class="icon">📻</span><span class="icon-text">רדיו ופודקאסטים</span><p class="description">תחנות מוזיקה והסכתים מובילים</p></li>
                 <li><span class="icon">📺</span><span class="icon-text">חוויית סטרימינג</span><p class="description">מותאם באופן מושלם לסטרימרים ושלט רחוק</p></li>
@@ -215,7 +222,12 @@
         <section class="section" style="text-align: center;">
             <h2>התקנה והורדה</h2>
             <a href="https://tiny.cc/mboxil" class="download-btn">הורד עכשיו</a>
-            <p>קוד Downloader: <strong>31560</strong></p>
+            
+            <div class="downloader-box">
+                <p style="margin: 0; font-size: 1.1rem; color: #fff;">קוד להתקנה ב-Downloader</p>
+                <strong>31560</strong>
+            </div>
+
             <div class="video-container">
                 <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
             </div>
@@ -237,11 +249,8 @@
     <script>
     function shareSite() {
         const shareLink = "https://tiny.cc/mboxsite";
-
         if (navigator.share) {
-            navigator.share({
-                url: shareLink
-            }).catch(() => copyToClipboard(shareLink));
+            navigator.share({ url: shareLink }).catch(() => copyToClipboard(shareLink));
         } else {
             copyToClipboard(shareLink);
         }
@@ -261,6 +270,5 @@
         });
     }
     </script>
-
 </body>
 </html>
