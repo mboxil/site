@@ -100,25 +100,37 @@
             margin-top: 10px;
         }
 
+        .features {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px;
+            list-style: none; 
+            padding: 0; 
+            margin: 0;
+        }
+        
+        .features li {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 25px 15px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: linear-gradient(145deg, #1c1c1c, #111111);
+            text-align: center;
+        }
+
+        .features .icon { font-size: 2.4rem; color: var(--gold-bright); margin-bottom: 10px; }
+        .features li .icon-text { font-size: 1.25rem; font-weight: 700; color: var(--gold-bright); margin-bottom: 4px; }
+        .features .description { font-size: 0.9rem; color: #d1d5db; line-height: 1.3; }
+
         .download-btn {
-            display: block; max-width: 300px; margin: 40px auto 10px auto;
+            display: block; max-width: 300px; margin: 40px auto;
             background: var(--secondary-gradient); color: #000;
             padding: 18px 30px; text-align: center; border-radius: 50px;
             text-decoration: none; font-weight: 800; font-size: 1.4rem;
             box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
             transition: 0.4s;
-        }
-
-        /* עיצוב מונה ההורדות */
-        .download-counter {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-        .download-counter span {
-            color: var(--gold-bright);
-            font-weight: 700;
         }
         
         .video-container {
@@ -130,7 +142,8 @@
 
         .footer { padding: 40px 0; background: #000; text-align: center; border-top: 3px solid var(--border); color: var(--muted); }
 
-        @media (max-width: 600px) { .share-floating-btn { padding: 8px 15px; font-size: 14px; top: 15px; left: 15px; } }
+        @media (max-width: 992px) { .features { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -151,18 +164,12 @@
             <h2>מה זה מדיה בוקס?</h2>
             <p>מדיה בוקס הינה ממשק משתמש חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת באופן מלא ל-Android TV. האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך ייתכן ותאימות הממשק במכשירים אלו לא תהיה מלאה.
             <br><br>
-            <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיץ תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong></p>
+            <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיצה תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong></p>
         </section>
 
         <section class="section" style="text-align: center;">
             <h2>התקנה והורדה</h2>
-            
-            <a href="https://tiny.cc/mboxil" class="download-btn" onclick="countDownload()">הורד עכשיו</a>
-            
-            <div class="download-counter">
-                <i class="fas fa-fire" style="color: #ef4444; margin-left: 5px;"></i>
-                סה"כ הורדות: <span id="count-number">13,745</span>
-            </div>
+            <a href="https://tiny.cc/mboxil" class="download-btn">הורד עכשיו</a>
             
             <div class="downloader-box">
                 <p style="margin: 0; font-size: 1.1rem; color: #fff;">קוד להתקנה ב-Downloader:</p>
@@ -173,6 +180,16 @@
                 <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
             </div>
         </section>
+
+        <section class="section">
+            <h2>מה מכילה מדיה בוקס?</h2>
+            <ul class="features">
+                <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי</p></li>
+                <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי כותרים מכל הזמנים</p></li>
+                <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">תמיכה ב-Real-Debrid לאיכות 4K</p></li>
+                <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור לקבוצות התוכן בטלגרם</p></li>
+            </ul>
+        </section>
     </main>
 
     <footer class="footer">
@@ -180,20 +197,12 @@
     </footer>
 
     <script>
-    // פונקציית מונה הורדות
-    function countDownload() {
-        let countElement = document.getElementById("count-number");
-        let currentCount = parseInt(countElement.innerText.replace(/,/g, ''));
-        countElement.innerText = (currentCount + 1).toLocaleString();
-    }
-
     function shareSite() {
         const shareLink = "https://tiny.cc/mboxsite";
         if (navigator.share) {
             navigator.share({ url: shareLink }).catch(() => copyToClipboard(shareLink));
         } else { copyToClipboard(shareLink); }
     }
-
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => alert("הכתובת הועתקה!"));
     }
