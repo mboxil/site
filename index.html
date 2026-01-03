@@ -33,7 +33,6 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
-        /* כפתור שיתוף צף */
         .share-floating-btn {
             position: fixed;
             top: 20px;
@@ -55,12 +54,6 @@
             border: 1px solid rgba(0,0,0,0.2);
         }
 
-        .share-floating-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--gold-bright);
-        }
-
-        /* Hero Section */
         .hero-section {
             padding: 80px 0;
             text-align: center;
@@ -74,8 +67,6 @@
             height: auto;
             border-radius: 25px;
             box-shadow: 0 10px 30px var(--shadow);
-            transition: all 0.5s ease;
-            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.2));
         }
 
         .section { padding: 60px 0; border-bottom: 1px solid #1a1a1a; }
@@ -91,7 +82,6 @@
         
         .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
 
-        /* תיבת Downloader מודגשת */
         .downloader-box {
             background: #171717;
             border: 2px dashed var(--border);
@@ -108,64 +98,27 @@
             letter-spacing: 3px; 
             display: block;
             margin-top: 10px;
-            text-shadow: 0 0 10px var(--gold-glow);
         }
 
-        /* כרטיסיות */
-        .features {
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 15px;
-            list-style: none; 
-            padding: 0; 
-            margin: 0;
-        }
-        
-        .features li {
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            padding: 25px 15px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            background: linear-gradient(145deg, #1c1c1c, #111111);
-            transition: 0.4s;
-            text-align: center;
-        }
-        
-        .features li:hover {
-            transform: translateY(-8px);
-            border-color: var(--gold-bright);
-        }
-
-        .features .icon { 
-            font-size: 2.4rem; 
-            color: var(--gold-bright); 
-            margin-bottom: 10px;
-        }
-        
-        .features li .icon-text { 
-            font-size: 1.25rem; 
-            font-weight: 700; 
-            color: var(--gold-bright);
-            margin-bottom: 4px;
-        }
-
-        .features .description { 
-            font-size: 0.9rem; 
-            color: #d1d5db; 
-            line-height: 1.3; 
-        }
-
-        /* כפתור הורדה */
         .download-btn {
-            display: block; max-width: 300px; margin: 40px auto;
+            display: block; max-width: 300px; margin: 40px auto 10px auto;
             background: var(--secondary-gradient); color: #000;
             padding: 18px 30px; text-align: center; border-radius: 50px;
             text-decoration: none; font-weight: 800; font-size: 1.4rem;
             box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
             transition: 0.4s;
+        }
+
+        /* עיצוב מונה ההורדות */
+        .download-counter {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .download-counter span {
+            color: var(--gold-bright);
+            font-weight: 700;
         }
         
         .video-container {
@@ -177,11 +130,7 @@
 
         .footer { padding: 40px 0; background: #000; text-align: center; border-top: 3px solid var(--border); color: var(--muted); }
 
-        @media (max-width: 992px) { .features { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { 
-            .features { grid-template-columns: 1fr; }
-            .share-floating-btn { padding: 8px 15px; font-size: 14px; top: 15px; left: 15px; }
-        }
+        @media (max-width: 600px) { .share-floating-btn { padding: 8px 15px; font-size: 14px; top: 15px; left: 15px; } }
     </style>
 </head>
 <body>
@@ -200,44 +149,28 @@
     <main class="container">
         <section class="section">
             <h2>מה זה מדיה בוקס?</h2>
-            <p>מדיה בוקס הינה ממשק משתמש (Client) חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת ל-Android TV, טאבלטים וסמארטפונים.
+            <p>מדיה בוקס הינה ממשק משתמש חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת באופן מלא ל-Android TV. האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך ייתכן ותאימות הממשק במכשירים אלו לא תהיה מלאה.
             <br><br>
-            <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. השירות אינו מאחסן, מארח או מפיץ תכני וידאו באופן עצמאי.</strong></p>
-        </section>
-
-        <section class="section">
-            <h2>מה מכילה מדיה בוקס?</h2>
-            <ul class="features">
-                <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי עשיר</p></li>
-                <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי סרטים ועונות מלאות לצפייה</p></li>
-                <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">איכות 4K עם Real-Debrid וצפייה ישירה</p></li>
-                <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור מלא לקבוצות התוכן בטלגרם</p></li>
-                <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">סרטים וסדרות לילדים</p></li>
-                <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV וספורט מכל הגלובוס</p></li>
-                <li><span class="icon">📻</span><span class="icon-text">רדיו ופודקאסטים</span><p class="description">תחנות מוזיקה והסכתים מובילים</p></li>
-                <li><span class="icon">📺</span><span class="icon-text">חוויית סטרימינג</span><p class="description">מותאם באופן מושלם לסטרימרים ושלט רחוק</p></li>
-            </ul>
+            <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיץ תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong></p>
         </section>
 
         <section class="section" style="text-align: center;">
             <h2>התקנה והורדה</h2>
-            <a href="https://tiny.cc/mboxil" class="download-btn">הורד עכשיו</a>
+            
+            <a href="https://tiny.cc/mboxil" class="download-btn" onclick="countDownload()">הורד עכשיו</a>
+            
+            <div class="download-counter">
+                <i class="fas fa-fire" style="color: #ef4444; margin-left: 5px;"></i>
+                סה"כ הורדות: <span id="count-number">13,745</span>
+            </div>
             
             <div class="downloader-box">
-                <p style="margin: 0; font-size: 1.1rem; color: #fff;">קוד להתקנה ב-Downloader</p>
+                <p style="margin: 0; font-size: 1.1rem; color: #fff;">קוד להתקנה ב-Downloader:</p>
                 <strong>31560</strong>
             </div>
 
             <div class="video-container">
                 <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>חיבור לטלמדיה</h2>
-            <p>חברו את חשבון הטלגרם שלכם ותיהנו מגישה ישירה לקבוצות המדיה שלכם</p>
-            <div class="video-container">
-                <iframe src="https://player.vimeo.com/video/845571390" allowfullscreen></iframe>
             </div>
         </section>
     </main>
@@ -247,28 +180,24 @@
     </footer>
 
     <script>
+    // פונקציית מונה הורדות
+    function countDownload() {
+        let countElement = document.getElementById("count-number");
+        let currentCount = parseInt(countElement.innerText.replace(/,/g, ''));
+        countElement.innerText = (currentCount + 1).toLocaleString();
+    }
+
     function shareSite() {
         const shareLink = "https://tiny.cc/mboxsite";
         if (navigator.share) {
             navigator.share({ url: shareLink }).catch(() => copyToClipboard(shareLink));
-        } else {
-            copyToClipboard(shareLink);
-        }
+        } else { copyToClipboard(shareLink); }
     }
 
     function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert("הכתובת הועתקה ללוח!");
-        }).catch(() => {
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-            alert("הכתובת הועתקה!");
-        });
+        navigator.clipboard.writeText(text).then(() => alert("הכתובת הועתקה!"));
     }
     </script>
+
 </body>
 </html>
