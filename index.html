@@ -33,6 +33,7 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
+        /* כפתור שיתוף צף */
         .share-floating-btn {
             position: fixed;
             top: 20px;
@@ -54,6 +55,12 @@
             border: 1px solid rgba(0,0,0,0.2);
         }
 
+        .share-floating-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--gold-bright);
+        }
+
+        /* Hero Section */
         .hero-section {
             padding: 80px 0;
             text-align: center;
@@ -67,12 +74,23 @@
             height: auto;
             border-radius: 25px;
             box-shadow: 0 10px 30px var(--shadow);
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.2));
         }
 
         .section { padding: 60px 0; border-bottom: 1px solid #1a1a1a; }
-        .section h2 { text-align: center; margin-bottom: 40px; color: var(--highlight); font-size: 32px; font-weight: 700; }
+        
+        .section h2 { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            color: var(--highlight); 
+            font-size: 32px; 
+            font-weight: 700; 
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+        }
+        
         .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
 
+        /* תיבת Downloader מודגשת */
         .downloader-box {
             background: #171717;
             border: 2px dashed var(--border);
@@ -81,9 +99,49 @@
             margin: 20px auto;
             max-width: 400px;
             display: inline-block;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
         }
-        .downloader-box strong { font-size: 2.2rem; color: var(--gold-bright); letter-spacing: 3px; display: block; margin-top: 10px; }
+        .downloader-box strong { 
+            font-size: 2.2rem; 
+            color: var(--gold-bright); 
+            letter-spacing: 3px; 
+            display: block;
+            margin-top: 10px;
+        }
 
+        /* כרטיסיות */
+        .features {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px;
+            list-style: none; 
+            padding: 0; 
+            margin: 0;
+        }
+        
+        .features li {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            padding: 25px 15px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            background: linear-gradient(145deg, #1c1c1c, #111111);
+            transition: 0.4s;
+            text-align: center;
+        }
+        
+        .features li:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-bright);
+        }
+
+        .features .icon { font-size: 2.4rem; color: var(--gold-bright); margin-bottom: 10px; }
+        .features li .icon-text { font-size: 1.25rem; font-weight: 700; color: var(--gold-bright); margin-bottom: 4px; }
+        .features .description { font-size: 0.9rem; color: #d1d5db; line-height: 1.3; }
+
+        /* כפתור הורדה ומונה */
         .download-btn {
             display: block; max-width: 300px; margin: 40px auto 10px auto;
             background: var(--secondary-gradient); color: #000;
@@ -92,7 +150,7 @@
             box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
             transition: 0.4s;
         }
-
+        
         .download-counter {
             color: var(--muted);
             font-size: 0.95rem;
@@ -100,11 +158,8 @@
             font-weight: 500;
             text-align: center;
         }
-        .download-counter span {
-            color: var(--gold-bright);
-            font-weight: 700;
-        }
-        
+        .download-counter span { color: var(--gold-bright); font-weight: 700; }
+
         .video-container {
             position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
             max-width: 850px; margin: 30px auto; border-radius: 25px;
@@ -114,7 +169,11 @@
 
         .footer { padding: 40px 0; background: #000; text-align: center; border-top: 3px solid var(--border); color: var(--muted); }
 
-        @media (max-width: 600px) { .share-floating-btn { padding: 8px 15px; font-size: 14px; top: 15px; left: 15px; } }
+        @media (max-width: 992px) { .features { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { 
+            .features { grid-template-columns: 1fr; } 
+            .share-floating-btn { padding: 8px 15px; font-size: 14px; top: 15px; left: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -138,6 +197,20 @@
             <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיצה תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong></p>
         </section>
 
+        <section class="section">
+            <h2>מה מכילה מדיה בוקס?</h2>
+            <ul class="features">
+                <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי</p></li>
+                <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי סרטים ועונות מלאות</p></li>
+                <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">איכות 4K עם Real-Debrid</p></li>
+                <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור לקבוצות בטלגרם</p></li>
+                <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">סרטים וסדרות לילדים</p></li>
+                <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV וספורט עולמי</p></li>
+                <li><span class="icon">📻</span><span class="icon-text">רדיו ופודקאסטים</span><p class="description">תחנות מוזיקה והסכתים</p></li>
+                <li><span class="icon">📺</span><span class="icon-text">חוויית סטרימינג</span><p class="description">מותאם לשלט רחוק בסטרימרים</p></li>
+            </ul>
+        </section>
+
         <section class="section" style="text-align: center;">
             <h2>התקנה והורדה</h2>
             
@@ -157,6 +230,14 @@
                 <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
             </div>
         </section>
+
+        <section class="section">
+            <h2>חיבור לטלמדיה</h2>
+            <p>חברו את חשבון הטלגרם שלכם ותיהנו מגישה ישירה לקבוצות המדיה שלכם</p>
+            <div class="video-container">
+                <iframe src="https://player.vimeo.com/video/845571390" allowfullscreen></iframe>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -167,7 +248,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
     <script>
-    // הגדרות Firebase שלך
+    // Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyDZ8oOj2xN2fboDQR6Zg4xs1aCFPC-tpCs",
         authDomain: "mb-site-dl-count.firebaseapp.com",
@@ -178,25 +259,24 @@
         appId: "1:815997047528:web:dfc6628df91e560b60ef5d"
     };
 
-    // אתחול
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     const counterRef = db.ref('download_count');
 
-    // טעינת המונה
+    // Load Counter
     counterRef.on('value', (snapshot) => {
         const count = snapshot.val() || 0;
-        // מציג 27,246 פלוס מספר הלחיצות האמיתי שנאגר
-        document.getElementById('count').innerText = (count + 27246).toLocaleString();
+        document.getElementById('count').innerText = (count + 12458).toLocaleString();
     });
 
-    // פונקציית לחיצה
+    // Handle Download Click
     function hitCounter() {
         counterRef.transaction((currentCount) => {
             return (currentCount || 0) + 1;
         });
     }
 
+    // Share Function
     function shareSite() {
         const shareLink = "https://tiny.cc/mboxsite";
         if (navigator.share) {
@@ -205,7 +285,7 @@
     }
 
     function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => alert("הכתובת הועתקה!"));
+        navigator.clipboard.writeText(text).then(() => alert("הקישור הועתק ללוח!"));
     }
     </script>
 </body>
