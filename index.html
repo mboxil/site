@@ -70,16 +70,7 @@
         }
 
         .section { padding: 60px 0; border-bottom: 1px solid #1a1a1a; }
-        
-        .section h2 { 
-            text-align: center; 
-            margin-bottom: 40px; 
-            color: var(--highlight); 
-            font-size: 32px; 
-            font-weight: 700; 
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
-        }
-        
+        .section h2 { text-align: center; margin-bottom: 40px; color: var(--highlight); font-size: 32px; font-weight: 700; }
         .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
 
         .downloader-box {
@@ -90,47 +81,28 @@
             margin: 20px auto;
             max-width: 400px;
             display: inline-block;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
         }
-        .downloader-box strong { 
-            font-size: 2.2rem; 
-            color: var(--gold-bright); 
-            letter-spacing: 3px; 
-            display: block;
-            margin-top: 10px;
-        }
-
-        .features {
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 15px;
-            list-style: none; 
-            padding: 0; 
-            margin: 0;
-        }
-        
-        .features li {
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 25px 15px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            background: linear-gradient(145deg, #1c1c1c, #111111);
-            text-align: center;
-        }
-
-        .features .icon { font-size: 2.4rem; color: var(--gold-bright); margin-bottom: 10px; }
-        .features li .icon-text { font-size: 1.25rem; font-weight: 700; color: var(--gold-bright); margin-bottom: 4px; }
-        .features .description { font-size: 0.9rem; color: #d1d5db; line-height: 1.3; }
+        .downloader-box strong { font-size: 2.2rem; color: var(--gold-bright); letter-spacing: 3px; display: block; margin-top: 10px; }
 
         .download-btn {
-            display: block; max-width: 300px; margin: 40px auto;
+            display: block; max-width: 300px; margin: 40px auto 10px auto;
             background: var(--secondary-gradient); color: #000;
             padding: 18px 30px; text-align: center; border-radius: 50px;
             text-decoration: none; font-weight: 800; font-size: 1.4rem;
             box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
             transition: 0.4s;
+        }
+
+        .download-counter {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+            text-align: center;
+        }
+        .download-counter span {
+            color: var(--gold-bright);
+            font-weight: 700;
         }
         
         .video-container {
@@ -142,8 +114,7 @@
 
         .footer { padding: 40px 0; background: #000; text-align: center; border-top: 3px solid var(--border); color: var(--muted); }
 
-        @media (max-width: 992px) { .features { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .share-floating-btn { padding: 8px 15px; font-size: 14px; top: 15px; left: 15px; } }
     </style>
 </head>
 <body>
@@ -169,7 +140,13 @@
 
         <section class="section" style="text-align: center;">
             <h2>התקנה והורדה</h2>
-            <a href="https://tiny.cc/mboxil" class="download-btn">הורד עכשיו</a>
+            
+            <a href="https://tiny.cc/mboxil" class="download-btn" onclick="hitCounter()">הורד עכשיו</a>
+            
+            <div class="download-counter">
+                <i class="fas fa-chart-line" style="color: var(--highlight); margin-left: 5px;"></i>
+                סה"כ הורדות מהאתר: <span id="count">טוען...</span>
+            </div>
             
             <div class="downloader-box">
                 <p style="margin: 0; font-size: 1.1rem; color: #fff;">קוד להתקנה ב-Downloader:</p>
@@ -180,33 +157,56 @@
                 <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
             </div>
         </section>
-
-        <section class="section">
-            <h2>מה מכילה מדיה בוקס?</h2>
-            <ul class="features">
-                <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי</p></li>
-                <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי כותרים מכל הזמנים</p></li>
-                <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">תמיכה ב-Real-Debrid לאיכות 4K</p></li>
-                <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור לקבוצות התוכן בטלגרם</p></li>
-            </ul>
-        </section>
     </main>
 
     <footer class="footer">
         <p>&copy; 2026 מדיה בוקס - כל הזכויות שמורות</p>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
     <script>
+    // הגדרות Firebase שלך
+    const firebaseConfig = {
+        apiKey: "AIzaSyDZ8oOj2xN2fboDQR6Zg4xs1aCFPC-tpCs",
+        authDomain: "mb-site-dl-count.firebaseapp.com",
+        databaseURL: "https://mb-site-dl-count-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "mb-site-dl-count",
+        storageBucket: "mb-site-dl-count.firebasestorage.app",
+        messagingSenderId: "815997047528",
+        appId: "1:815997047528:web:dfc6628df91e560b60ef5d"
+    };
+
+    // אתחול
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const counterRef = db.ref('download_count');
+
+    // טעינת המונה
+    counterRef.on('value', (snapshot) => {
+        const count = snapshot.val() || 0;
+        // מציג 27,246 פלוס מספר הלחיצות האמיתי שנאגר
+        document.getElementById('count').innerText = (count + 27246).toLocaleString();
+    });
+
+    // פונקציית לחיצה
+    function hitCounter() {
+        counterRef.transaction((currentCount) => {
+            return (currentCount || 0) + 1;
+        });
+    }
+
     function shareSite() {
         const shareLink = "https://tiny.cc/mboxsite";
         if (navigator.share) {
             navigator.share({ url: shareLink }).catch(() => copyToClipboard(shareLink));
         } else { copyToClipboard(shareLink); }
     }
+
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => alert("הכתובת הועתקה!"));
     }
     </script>
-
 </body>
 </html>
