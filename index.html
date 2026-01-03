@@ -236,26 +236,26 @@
 
     <script>
     function shareSite() {
+        const shareLink = "https://tiny.cc/mboxsite";
         const shareData = {
             title: 'מדיה בוקס',
             text: 'מדיה בוקס - האפליקציה המושלמת לסטרימר שלך!',
-            url: window.location.href
+            url: shareLink
         };
 
         if (navigator.share) {
-            navigator.share(shareData).catch(() => copyToClipboard());
+            navigator.share(shareData).catch(() => copyToClipboard(shareLink));
         } else {
-            copyToClipboard();
+            copyToClipboard(shareLink);
         }
     }
 
-    function copyToClipboard() {
-        const url = window.location.href;
-        navigator.clipboard.writeText(url).then(() => {
-            alert("הקישור הועתק ללוח! ניתן להדביק ולשלוח לחברים.");
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("הקישור הועתק ללוח! ניתן להדביק ולשלוח לחברים: " + text);
         }).catch(() => {
             const el = document.createElement('textarea');
-            el.value = url;
+            el.value = text;
             document.body.appendChild(el);
             el.select();
             document.execCommand('copy');
