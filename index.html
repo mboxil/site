@@ -162,15 +162,14 @@
         .video-container iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
         .footer { padding: 40px 0; background: #000; text-align: center; border-top: 4px solid var(--border); color: var(--muted); }
 
-        /* מובייל */
-        @media (max-width: 600px) {
-            .site-header { height: 75px; padding: 0 10px; justify-content: center; gap: 10px; }
-            .header-logo { display: none !important; }
-            .nav-container-liquid { position: static; transform: none; left: auto; flex: 1; justify-content: center; max-width: 220px; background: rgba(13, 13, 13, 0.95); }
+        @media (max-width: 850px) {
+            .site-header { height: 75px; padding: 0 10px; }
+            .header-logo video { height: 40px; } /* וידאו קטן יותר במובייל */
             .nav-link span, .header-share span { display: none; }
-            .nav-link { padding: 8px 12px; font-size: 18px; }
-            .header-share { padding: 8px; width: 40px; height: 40px; justify-content: center; }
-            .container { padding-top: 100px; }
+            .kb-wrapper { grid-template-columns: 1fr; }
+            .kb-sidebar { display: flex; overflow-x: auto; position: static; padding: 10px 5px; background: transparent; border: none; box-shadow: none; gap: 8px; }
+            .kb-nav-btn { width: auto; white-space: nowrap; margin-bottom: 0; padding: 10px 15px; flex-shrink: 0; border: 1px solid var(--separator); }
+            .kb-main-view { padding: 20px; min-height: auto; }
         }
     </style>
 </head>
