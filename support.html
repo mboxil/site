@@ -126,11 +126,14 @@
         </div>
     </header>
 
-    <div class="container">
+<div class="container">
         <div class="kb-wrapper">
             <aside class="kb-sidebar">
                 <button class="kb-nav-btn active animate-click" onclick="switchKB(this, 'sec-compatibility')">
                     <i class="fas fa-tv"></i> תאימות
+                </button>
+                <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-update-downloader')">
+                    <i class="fas fa-arrow-alt-circle-up"></i> עדכון Downloader
                 </button>
                 <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-no-play')">
                     <i class="fas fa-play-circle"></i> ערוץ לא מנגן
@@ -138,28 +141,28 @@
                 <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-reset')">
                     <i class="fas fa-undo-alt"></i> איפוס
                 </button>
-                <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-update-downloader')">
-                    <i class="fas fa-arrow-alt-circle-up"></i> עדכון Downloader
-                </button>
             </aside>
-
             <main class="kb-main-view">
                 <div id="sec-compatibility" class="kb-section active">
                     <h2>מידע על תאימות</h2>
-                    <p>מדיה בוקס מותאמת באופן מלא למכשירי <strong>Android TV</strong>.</p>
-                </div>
-                <div id="sec-no-play" class="kb-section">
-                    <h2>החלפת מקור ניגון</h2>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171393659" allowfullscreen></iframe></div>
-                </div>
-                <div id="sec-reset" class="kb-section">
-                    <h2>איפוס וחזרה להגדרות</h2>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171951589" allowfullscreen></iframe></div>
+                    <p>מדיה בוקס מותאמת באופן מלא למכשירי <strong>Android TV</strong>. 
+                    <br>לא ניתן להתקין את האפליקציה ישירות על טלוויזיות Samsung או LG (מערכות Tizen/WebOS). עבור מכשירים אלו נדרש סטרימר אנדרואיד חיצוני.</p>
+                    <p>האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך חוויית הממשק עשויה להשתנות.</p>
                 </div>
                 <div id="sec-update-downloader" class="kb-section">
                     <h2>עדכון אפליקציית Downloader</h2>
                     <p>במידה וההורדה נתקעת, ייתכן ואפליקציית ה-Downloader שלכם אינה מעודכנת.</p>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/714170680" allowfullscreen></iframe></div>
+                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1173604843" allowfullscreen></iframe></div>
+                </div>
+                <div id="sec-no-play" class="kb-section">
+                    <h2>החלפת מקור ניגון</h2>
+                    <p>במידה וערוץ מסוים לא נטען, ניתן להחליף מקור ניגון בקלות.</p>
+                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171393659" allowfullscreen></iframe></div>
+                </div>
+                <div id="sec-reset" class="kb-section">
+                    <h2>איפוס וחזרה להגדרות יצרן</h2>
+                    <p>אם נתקלתם בבעיית "אין תוצאות" או שהאפליקציה אינה מגיבה כראוי, מומלץ לבצע מחיקת נתונים ואיפוס להגדרות יצרן.</p>
+                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171951589" allowfullscreen></iframe></div>
                 </div>
             </main>
         </div>
