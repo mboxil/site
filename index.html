@@ -52,6 +52,7 @@
             z-index: 100000;
         }
 
+        /* לוגו הדר - מוסתר בתחילה */
         .header-logo {
             opacity: 0;
             transform: scale(0.8);
@@ -74,6 +75,7 @@
             background: #000;
         }
 
+        /* ניווט נוזלי */
         .nav-container-liquid {
             position: absolute;
             left: 50%;
@@ -130,6 +132,7 @@
             border: none;
         }
 
+        /* Hero Section */
         .hero-section {
             padding: 130px 0 80px 0;
             text-align: center;
@@ -151,13 +154,6 @@
         .section h2 { text-align: center; margin-bottom: 40px; color: var(--highlight); font-size: 32px; font-weight: 700; }
         .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
 
-        .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; list-style: none; padding: 0; margin: 0; }
-        .features li { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 15px; border-radius: 20px; border: 1px solid var(--separator); background: linear-gradient(145deg, #1c1c1c, #111111); transition: 0.4s; text-align: center;}
-        .features li:hover { transform: translateY(-8px); border-color: var(--gold-bright); }
-        .features .icon { font-size: 2.4rem; color: var(--gold-bright); margin-bottom: 10px; }
-        .features li .icon-text { font-size: 1.25rem; font-weight: 700; color: var(--gold-bright); margin-bottom: 4px; }
-        .features .description { font-size: 0.9rem; color: #d1d5db; line-height: 1.3; }
-
         .download-btn { display: block; max-width: 300px; margin: 40px auto 10px auto; background: var(--secondary-gradient); color: #000; padding: 18px 30px; text-align: center; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 1.4rem; box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4); }
         .download-counter { color: var(--muted); font-size: 0.95rem; margin-bottom: 25px; text-align: center; }
         .download-counter span { color: var(--gold-bright); font-weight: 700; }
@@ -166,29 +162,21 @@
         .video-container iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
         .footer { padding: 40px 0; background: #000; text-align: center; border-top: 4px solid var(--border); color: var(--muted); }
 
+        /* התאמה למובייל */
         @media (max-width: 850px) {
             .site-header { height: 75px; padding: 0 10px; }
             .header-logo video { height: 40px; }
             .nav-link span, .header-share span { display: none; }
-            .kb-wrapper { grid-template-columns: 1fr; }
-            .kb-sidebar { display: flex; overflow-x: auto; position: static; padding: 10px 5px; background: transparent; border: none; box-shadow: none; gap: 8px; }
-            .kb-nav-btn { width: auto; white-space: nowrap; margin-bottom: 0; padding: 10px 15px; flex-shrink: 0; border: 1px solid var(--separator); }
-            .kb-main-view { padding: 20px; min-height: auto; }
-            .features { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .features { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header class="site-header">
-       <a href="https://mboxil.github.io/index.html" class="header-logo" id="dynamic-header-logo">
-    <video autoplay loop muted playsinline disablepictureinpicture disableremoteplayback preload="auto">
-        <source src="https://github.com/mboxil/mboxil.github.io/raw/refs/heads/main/logo.mp4" type="video/mp4">
-    </video>
-</a>
+        <a href="https://mboxil.github.io/index.html" class="header-logo" id="dynamic-header-logo">
+            <video autoplay loop muted playsinline>
+                <source src="https://github.com/mboxil/mboxil.github.io/raw/refs/heads/main/logo.mp4" type="video/mp4">
+            </video>
         </a>
 
         <nav class="nav-container-liquid">
@@ -206,15 +194,15 @@
         </div>
     </header>
 
- <header class="hero-section">
-    <div class="container">
-        <video autoplay loop muted playsinline disablepictureinpicture disableremoteplayback preload="auto" class="hero-video">
-            <source src="https://github.com/mboxil/mboxil.github.io/raw/refs/heads/main/logo.mp4" type="video/mp4">
-        </video>
-    </div>
-</header>
+    <header class="hero-section">
+        <div class="container">
+            <video autoplay loop muted playsinline class="hero-video">
+                <source src="https://github.com/mboxil/mboxil.github.io/raw/refs/heads/main/logo.mp4" type="video/mp4">
+            </video>
+        </div>
+    </header>
 
-    <main class="container">
+<main class="container">
         <section class="section">
             <h2>מה זה מדיה בוקס?</h2>
             <p>מדיה בוקס הינה ממשק משתמש חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת באופן מלא ל-<strong>Android TV</strong> (לא ניתן להתקין על מערכות LG או Samsung).
@@ -222,20 +210,6 @@
                 האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך ייתכן ותאימות הממשק במכשירים אלו לא תהיה מלאה.
             <br><br>
             <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיצה תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong></p>
-        </section>
-
-        <section class="section">
-            <h2>מה מכילה מדיה בוקס?</h2>
-            <ul class="features">
-                <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי</p></li>
-                <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי סרטים ועונות מלאות</p></li>
-                <li><span class="icon">⚡</span><span class="icon-text">תוכן פרימיום</span><p class="description">איכות 4K עם Real-Debrid</p></li>
-                <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור לקבוצות בטלגרם</p></li>
-                <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">סרטים וסדרות לילדים</p></li>
-                <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV וספורט עולמי</p></li>
-                <li><span class="icon">📻</span><span class="icon-text">רדיו ופודקאסטים</span><p class="description">תחנות מוזיקה והסכתים</p></li>
-                <li><span class="icon">📺</span><span class="icon-text">חוויית סטרימינג</span><p class="description">מותאם לשלט רחוק בסטרימרים</p></li>
-            </ul>
         </section>
 
         <section class="section" style="text-align: center;">
