@@ -52,7 +52,6 @@
             z-index: 100000;
         }
 
-        /* לוגו הדר */
         .header-logo {
             opacity: 0;
             transform: scale(0.8);
@@ -75,7 +74,6 @@
             background: #000;
         }
 
-        /* ניווט */
         .nav-container-liquid {
             position: absolute;
             left: 50%;
@@ -185,8 +183,8 @@
 
     <header class="site-header">
         <a href="https://mboxil.github.io/index.html" class="header-logo" id="dynamic-header-logo">
-            <video autoplay loop muted playsinline disablePictureInPicture disableremoteplayback>
-                <source src="https://github.com/mboxil/mboxil.github.io/raw/refs/heads/main/logo.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline disablePictureInPicture disableremoteplayback preload="auto">
+                <source src="https://raw.githubusercontent.com/mboxil/mboxil.github.io/main/logo.mp4" type="video/mp4">
             </video>
         </a>
 
@@ -207,8 +205,8 @@
 
     <header class="hero-section">
         <div class="container">
-            <video autoplay loop muted playsinline disablePictureInPicture disableremoteplayback class="hero-video">
-                <source src="https://github.com/mboxil/mboxil.github.io/raw/refs/heads/main/logo.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline disablePictureInPicture disableremoteplayback preload="auto" class="hero-video">
+                <source src="https://raw.githubusercontent.com/mboxil/mboxil.github.io/main/logo.mp4" type="video/mp4">
             </video>
         </div>
     </header>
@@ -217,10 +215,11 @@
         <section class="section">
             <h2>מה זה מדיה בוקס?</h2>
             <p>מדיה בוקס הינה ממשק משתמש חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת באופן מלא ל-<strong>Android TV</strong> (לא ניתן להתקין על מערכות LG או Samsung).
-                <br>
+                <br><br>
                 האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך ייתכן ותאימות הממשק במכשירים אלו לא תהיה מלאה.
-            <br><br>
-            <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיצה תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong></p>
+                <br><br>
+                <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיצה תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong>
+            </p>
         </section>
 
         <section class="section">
@@ -245,7 +244,7 @@
                 <iframe src="https://player.vimeo.com/video/714168877" allowfullscreen></iframe>
             </div>
         </section>
-        
+
         <section class="section">
             <h2>חיבור לטלמדיה</h2>
             <div class="video-container">
@@ -304,15 +303,11 @@
             el.classList.add('active-blob');
         }
 
-        const activeInitial = document.getElementById("nav-home");
-        setTimeout(() => moveBlob(activeInitial), 150);
+        setTimeout(() => moveBlob(document.getElementById("nav-home")), 150);
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 150) {
-                headerLogo.classList.add('visible');
-            } else {
-                headerLogo.classList.remove('visible');
-            }
+            if (window.scrollY > 150) headerLogo.classList.add('visible');
+            else headerLogo.classList.remove('visible');
         });
 
         const clickables = document.querySelectorAll(".animate-click");
@@ -334,7 +329,7 @@
         });
 
         links.forEach(l => l.addEventListener("mouseenter", () => moveBlob(l)));
-        nav.addEventListener("mouseleave", () => moveBlob(activeInitial));
+        nav.addEventListener("mouseleave", () => moveBlob(document.getElementById("nav-home")));
     });
 
     function shareSite() {
