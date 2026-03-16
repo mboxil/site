@@ -36,13 +36,19 @@
 
         .is-pressed { transform: scale(0.88) !important; }
 
-        /* לוגו הדר - תמיד גלוי */
+        /* --- עיצוב לוגו הוידאו --- */
         .header-logo {
-            opacity: 1;
-            transform: scale(1);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
 
-        .header-logo img { height: 50px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .header-logo video {
+            height: 55px; /* מעט גדול יותר מאימג' כי יש לו שוליים פנימיים בדרך כלל */
+            border-radius: 10px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            object-fit: cover;
+        }
 
         .nav-container-liquid {
             position: absolute; left: 50%; transform: translateX(-50%); display: flex;
@@ -68,56 +74,28 @@
         .header-share {
             background: var(--gold-gradient); color: #000; padding: 8px 20px;
             border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 15px; border: none;
+            
         }
 
-        /* --- מבנה תפריט צד --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 130px 20px 40px; }
         .kb-wrapper { display: grid; grid-template-columns: 300px 1fr; gap: 30px; align-items: start; }
-
-        .kb-sidebar {
-            background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid var(--separator);
-            position: sticky; top: 110px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); height: fit-content;
-        }
-
-        .kb-nav-btn {
-            width: 100%; text-align: right; padding: 15px; margin-bottom: 12px; border: none;
-            background: rgba(255, 255, 255, 0.03); color: #a1a1aa; cursor: pointer; border-radius: 12px;
-            font-family: 'Rubik'; display: flex; align-items: center; gap: 15px;
-        }
-
+        .kb-sidebar { background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid var(--separator); position: sticky; top: 110px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); height: fit-content; }
+        .kb-nav-btn { width: 100%; text-align: right; padding: 15px; margin-bottom: 12px; border: none; background: rgba(255, 255, 255, 0.03); color: #a1a1aa; cursor: pointer; border-radius: 12px; font-family: 'Rubik'; display: flex; align-items: center; gap: 15px; }
         .kb-nav-btn.active { background: var(--gold-gradient); color: #000; font-weight: 700; }
-
-        .kb-main-view {
-            background: var(--card); border-radius: 25px; padding: 35px; border: 1px solid var(--separator);
-            min-height: 650px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
+        .kb-main-view { background: var(--card); border-radius: 25px; padding: 35px; border: 1px solid var(--separator); min-height: 650px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .kb-section { display: none; animation: slideUp 0.5s ease forwards; }
         .kb-section.active { display: block; }
-
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 18px; overflow: hidden; border: 2px solid #333; margin-top: 25px; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-
         .footer { text-align: center; padding: 40px 0; background: #000; color: #71717a; border-top: 4px solid var(--border); margin-top: 50px; }
 
-        /* --- התאמה למובייל --- */
         @media (max-width: 850px) {
             .site-header { height: 75px; padding: 0 10px; }
-            
-            /* לוגו קטן יותר במובייל */
-            .header-logo img { height: 35px; }
-
-            .nav-link span { display: none; }
-            .header-share span { display: none; }
-            
+            .header-logo video { height: 40px; } /* וידאו קטן יותר במובייל */
+            .nav-link span, .header-share span { display: none; }
             .kb-wrapper { grid-template-columns: 1fr; }
-            .kb-sidebar { 
-                display: flex; overflow-x: auto; position: static; padding: 10px 5px; 
-                background: transparent; border: none; box-shadow: none; gap: 8px;
-            }
-            .kb-sidebar::-webkit-scrollbar { display: none; }
+            .kb-sidebar { display: flex; overflow-x: auto; position: static; padding: 10px 5px; background: transparent; border: none; box-shadow: none; gap: 8px; }
             .kb-nav-btn { width: auto; white-space: nowrap; margin-bottom: 0; padding: 10px 15px; flex-shrink: 0; border: 1px solid var(--separator); }
             .kb-main-view { padding: 20px; min-height: auto; }
         }
@@ -126,9 +104,13 @@
 <body>
 
     <header class="site-header">
-        <a href="https://mboxil.github.io/index.html" class="header-logo animate-click">
-            <img src="https://raw.githubusercontent.com/mboxil/site/main/logo.jpg" alt="מדיה בוקס">
-        </a>
+       <a href="https://mboxil.github.io/index.html" class="header-logo animate-click">
+    <video autoplay loop muted playsinline>
+        <source src="https://raw.githubusercontent.com/mboxil/mboxil.github.io/main/logo.mp4" type="video/mp4">
+        <img src="https://raw.githubusercontent.com/mboxil/site/main/logo.jpg" alt="מדיה בוקס">
+    </video>
+</a>
+
         <nav class="nav-container-liquid">
             <div class="liquid-blob"></div>
             <a href="https://mboxil.github.io/index.html" class="nav-link animate-click" id="nav-home">
@@ -138,6 +120,7 @@
                 <i class="fas fa-headset"></i><span>תמיכה</span>
             </a>
         </nav>
+
         <div class="header-share animate-click" onclick="shareSite()">
             <i class="fas fa-share-alt"></i><span>שיתוף</span>
         </div>
@@ -149,37 +132,34 @@
                 <button class="kb-nav-btn active animate-click" onclick="switchKB(this, 'sec-compatibility')">
                     <i class="fas fa-tv"></i> תאימות
                 </button>
-                <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-update-downloader')">
-                    <i class="fas fa-arrow-alt-circle-up"></i> עדכון Downloader
-                </button>
                 <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-no-play')">
                     <i class="fas fa-play-circle"></i> ערוץ לא מנגן
                 </button>
                 <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-reset')">
                     <i class="fas fa-undo-alt"></i> איפוס
                 </button>
+                <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-update-downloader')">
+                    <i class="fas fa-arrow-alt-circle-up"></i> עדכון Downloader
+                </button>
             </aside>
+
             <main class="kb-main-view">
                 <div id="sec-compatibility" class="kb-section active">
                     <h2>מידע על תאימות</h2>
-                    <p>מדיה בוקס מותאמת באופן מלא למכשירי <strong>Android TV</strong>. 
-                    <br>לא ניתן להתקין את האפליקציה ישירות על טלוויזיות Samsung או LG (מערכות Tizen/WebOS). עבור מכשירים אלו נדרש סטרימר אנדרואיד חיצוני.</p>
-                    <p>האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך חוויית הממשק עשויה להשתנות.</p>
+                    <p>מדיה בוקס מותאמת באופן מלא למכשירי <strong>Android TV</strong>.</p>
+                </div>
+                <div id="sec-no-play" class="kb-section">
+                    <h2>החלפת מקור ניגון</h2>
+                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171393659" allowfullscreen></iframe></div>
+                </div>
+                <div id="sec-reset" class="kb-section">
+                    <h2>איפוס וחזרה להגדרות</h2>
+                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171951589" allowfullscreen></iframe></div>
                 </div>
                 <div id="sec-update-downloader" class="kb-section">
                     <h2>עדכון אפליקציית Downloader</h2>
                     <p>במידה וההורדה נתקעת, ייתכן ואפליקציית ה-Downloader שלכם אינה מעודכנת.</p>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1173604843" allowfullscreen></iframe></div>
-                </div>
-                <div id="sec-no-play" class="kb-section">
-                    <h2>החלפת מקור ניגון</h2>
-                    <p>במידה וערוץ מסוים לא נטען, ניתן להחליף מקור ניגון בקלות.</p>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171393659" allowfullscreen></iframe></div>
-                </div>
-                <div id="sec-reset" class="kb-section">
-                    <h2>איפוס וחזרה להגדרות יצרן</h2>
-                    <p>אם נתקלתם בבעיית "אין תוצאות" או שהאפליקציה אינה מגיבה כראוי, מומלץ לבצע מחיקת נתונים ואיפוס להגדרות יצרן.</p>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171951589" allowfullscreen></iframe></div>
+                    <div class="video-container"><iframe src="https://player.vimeo.com/video/714170680" allowfullscreen></iframe></div>
                 </div>
             </main>
         </div>
@@ -222,7 +202,10 @@
                     if (href && !href.startsWith("#")) {
                         e.preventDefault();
                         this.classList.add("is-pressed");
-                        setTimeout(() => { this.classList.remove("is-pressed"); window.location.href = href; }, 200);
+                        setTimeout(() => {
+                            this.classList.remove("is-pressed");
+                            window.location.href = href;
+                        }, 200);
                     } else { this.classList.add("is-pressed"); setTimeout(() => this.classList.remove("is-pressed"), 200); }
                 });
             });
