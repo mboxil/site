@@ -36,15 +36,8 @@
 
         .is-pressed { transform: scale(0.88) !important; }
 
-        /* --- עיצוב לוגו הוידאו --- */
-        .header-logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
         .header-logo video {
-            height: 55px; /* מעט גדול יותר מאימג' כי יש לו שוליים פנימיים בדרך כלל */
+            height: 55px;
             border-radius: 10px;
             border: 1px solid rgba(245, 158, 11, 0.3);
             object-fit: cover;
@@ -74,7 +67,6 @@
         .header-share {
             background: var(--gold-gradient); color: #000; padding: 8px 20px;
             border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 15px; border: none;
-            
         }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 130px 20px 40px; }
@@ -86,6 +78,17 @@
         .kb-section { display: none; animation: slideUp 0.5s ease forwards; }
         .kb-section.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* העיצוב הכתום לתיבות המידע */
+        .info-box {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 25px;
+            border-radius: 15px;
+            border-right: 4px solid var(--highlight);
+            margin: 20px 0;
+        }
+        .info-box h3 { color: var(--highlight); margin-top: 0; display: flex; align-items: center; gap: 10px; font-size: 1.3rem; }
+
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 18px; overflow: hidden; border: 2px solid #333; margin-top: 25px; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .footer { text-align: center; padding: 40px 0; background: #000; color: #71717a; border-top: 4px solid var(--border); margin-top: 50px; }
@@ -105,11 +108,11 @@
 
     <header class="site-header">
        <a href="https://mboxil.github.io/index.html" class="header-logo animate-click">
-    <video autoplay loop muted playsinline>
-        <source src="https://raw.githubusercontent.com/mboxil/mboxil.github.io/main/logo.mp4" type="video/mp4">
-        <img src="https://raw.githubusercontent.com/mboxil/site/main/logo.jpg" alt="מדיה בוקס">
-    </video>
-</a>
+            <video autoplay loop muted playsinline>
+                <source src="https://raw.githubusercontent.com/mboxil/mboxil.github.io/main/logo.mp4" type="video/mp4">
+                <img src="https://raw.githubusercontent.com/mboxil/site/main/logo.jpg" alt="מדיה בוקס">
+            </video>
+        </a>
 
         <nav class="nav-container-liquid">
             <div class="liquid-blob"></div>
@@ -132,6 +135,9 @@
                 <button class="kb-nav-btn active animate-click" onclick="switchKB(this, 'sec-compatibility')">
                     <i class="fas fa-tv"></i> תאימות
                 </button>
+                <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-pc-install')">
+                    <i class="fas fa-desktop"></i> התקנה על מחשב
+                </button>
                 <button class="kb-nav-btn animate-click" onclick="switchKB(this, 'sec-update-downloader')">
                     <i class="fas fa-arrow-alt-circle-up"></i> עדכון Downloader
                 </button>
@@ -145,24 +151,53 @@
             <main class="kb-main-view">
                 <div id="sec-compatibility" class="kb-section active">
                     <h2>מידע על תאימות</h2>
-                    <p>מדיה בוקס מותאמת באופן מלא למכשירי <strong>Android TV</strong>. 
-                    <br>לא ניתן להתקין את האפליקציה ישירות על טלוויזיות Samsung או LG (מערכות Tizen/WebOS). עבור מכשירים אלו נדרש סטרימר אנדרואיד חיצוני.</p>
-                    <p>האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך חוויית הממשק עשויה להשתנות.</p>
+                    <div class="info-box">
+                        <h3><i class="fas fa-tv"></i> תמיכה במכשירים</h3>
+                        <p>מדיה בוקס מותאמת באופן מלא למכשירי <strong>Android TV</strong>.</p>
+                        <p><strong>שימו לב:</strong> לא ניתן להתקין את האפליקציה ישירות על טלוויזיות Samsung או LG. עבור מכשירים אלו נדרש סטרימר אנדרואיד חיצוני.</p>
+                        <p>האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך חוויית הממשק עשויה להשתנות.</p>
+                    </div>
                 </div>
+
+                <div id="sec-pc-install" class="kb-section">
+                    <h2>התקנה על המחשב (Windows/Mac)</h2>
+                    <div class="info-box">
+                        <h3><i class="fas fa-desktop"></i> מדריך BlueStacks</h3>
+                        <p>ניתן להריץ את מדיה בוקס על המחשב באמצעות אמולטור אנדרואיד:</p>
+                        <ol style="padding-right: 20px; color: #d1d5db; line-height: 1.8;">
+                            <li>הורידו והתקינו את האמולטור: <a href="https://www.bluestacks.com/download.html" target="_blank" style="color: var(--highlight); text-decoration: underline;">אתר BlueStacks הרשמי</a>.</li>
+                            <li>פתחו את דפדפן הכרום בתוך ה-BlueStacks.</li>
+                            <li>היכנסו לאתר הרשמי שלנו כדי להוריד את האפליקציה: <a href="http://tiny.cc/mboxsite" target="_blank" style="color: var(--highlight); text-decoration: underline;">tiny.cc/mboxsite</a></li>
+                            <li>לחצו על כפתור ההורדה באתר, התקינו את ה-APK והאייקון יופיע במסך הבית של התוכנה.</li>
+                        </ol>
+                    </div>
+                </div>
+
                 <div id="sec-update-downloader" class="kb-section">
                     <h2>עדכון אפליקציית Downloader</h2>
-                    <p>במידה וההורדה נתקעת, ייתכן ואפליקציית ה-Downloader שלכם אינה מעודכנת.</p>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1173604843" allowfullscreen></iframe></div>
+                    <div class="info-box">
+                        <h3><i class="fas fa-arrow-alt-circle-up"></i> בעיות בהורדה</h3>
+                        <p>במידה וההורדה נתקעת, ייתכן ואפליקציית ה-Downloader שלכם אינה מעודכנת.</p>
+                        <div class="video-container"><iframe src="https://player.vimeo.com/video/1173604843" allowfullscreen></iframe></div>
+                    </div>
                 </div>
+
                 <div id="sec-no-play" class="kb-section">
                     <h2>החלפת מקור ניגון</h2>
-                    <p>במידה וערוץ מסוים לא נטען, ניתן להחליף מקור ניגון בקלות.</p>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171393659" allowfullscreen></iframe></div>
+                    <div class="info-box">
+                        <h3><i class="fas fa-play-circle"></i> פתרון לערוץ שלא עולה</h3>
+                        <p>במידה וערוץ מסוים לא נטען, ניתן להחליף מקור ניגון בקלות בתוך האפליקציה.</p>
+                        <div class="video-container"><iframe src="https://player.vimeo.com/video/1171393659" allowfullscreen></iframe></div>
+                    </div>
                 </div>
+
                 <div id="sec-reset" class="kb-section">
                     <h2>איפוס וחזרה להגדרות יצרן</h2>
-                    <p>אם נתקלתם בבעיית "אין תוצאות" או שהאפליקציה אינה מגיבה כראוי, מומלץ לבצע מחיקת נתונים ואיפוס להגדרות יצרן.</p>
-                    <div class="video-container"><iframe src="https://player.vimeo.com/video/1171951589" allowfullscreen></iframe></div>
+                    <div class="info-box">
+                        <h3><i class="fas fa-undo-alt"></i> איפוס נתונים</h3>
+                        <p>אם נתקלתם בבעיית "אין תוצאות" או שהאפליקציה אינה מגיבה כראוי, מומלץ לבצע איפוס מלא.</p>
+                        <div class="video-container"><iframe src="https://player.vimeo.com/video/1171951589" allowfullscreen></iframe></div>
+                    </div>
                 </div>
             </main>
         </div>
@@ -220,7 +255,7 @@
         function shareSite() {
             const shareLink = "https://tiny.cc/mboxsite";
             if (navigator.share) { navigator.share({ url: shareLink }); } 
-            else { navigator.clipboard.writeText(shareLink); alert("הועתק!"); }
+            else { navigator.clipboard.writeText(shareLink); alert("הקישור הועתק!"); }
         }
     </script>
 </body>
