@@ -34,123 +34,43 @@
             overflow-x: hidden;
         }
 
-        /* --- הדר שקוף --- */
+        /* --- הדר --- */
         .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--separator);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-            z-index: 100000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--separator); display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 100000;
         }
 
-        .header-logo {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.4s ease-in-out;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-        }
+        .header-logo { opacity: 0; transform: scale(0.8); transition: all 0.4s ease-in-out; pointer-events: none; display: flex; align-items: center; }
+        .header-logo.visible { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .header-logo video { height: 50px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.3); background: #000; }
 
-        .header-logo.visible {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-
-        .header-logo video {
-            height: 50px;
-            border-radius: 8px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            background: #000;
-        }
-
-        .nav-container-liquid {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            background: rgba(13, 13, 13, 0.9);
-            padding: 4px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 1;
-            gap: 5px;
-        }
-
-        .nav-link {
-            position: relative;
-            color: #a1a1aa !important;
-            text-decoration: none !important;
-            font-weight: 600;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 25px;
-            border-radius: 50px;
-            z-index: 2;
-        }
-
+        .nav-container-liquid { position: absolute; left: 50%; transform: translateX(-50%); display: flex; background: rgba(13, 13, 13, 0.9); padding: 4px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); z-index: 1; gap: 5px; }
+        .nav-link { position: relative; color: #a1a1aa !important; text-decoration: none !important; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; padding: 10px 25px; border-radius: 50px; z-index: 2; }
         .nav-link.active-blob { color: #000 !important; }
+        .liquid-blob { position: absolute; top: 4px; left: 4px; height: calc(100% - 8px); width: 0; background: var(--secondary-gradient); border-radius: 50px; z-index: 1; transition: all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5), inset 0 4px 6px rgba(255, 255, 255, 0.4); }
+        .header-share { background: var(--secondary-gradient); color: #000; padding: 8px 20px; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 15px; border: none; }
 
-        .liquid-blob {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            height: calc(100% - 8px);
-            width: 0;
-            background: var(--secondary-gradient);
-            border-radius: 50px;
-            z-index: 1;
-            transition: all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5), inset 0 4px 6px rgba(255, 255, 255, 0.4);
-        }
-
-        .header-share {
-            background: var(--secondary-gradient);
-            color: #000;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15px;
-            border: none;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            padding: 130px 0 80px 0;
-            text-align: center;
-            background: radial-gradient(circle at center, #1c1917 0%, #0a0a0a 100%);
-            border-bottom: 4px solid var(--border);
-        }
-
-        .hero-video {
-            max-width: 500px;
-            width: 85%;
-            height: auto;
-            border-radius: 25px;
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.2);
-            filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.3));
-        }
+        .hero-section { padding: 130px 0 80px 0; text-align: center; background: radial-gradient(circle at center, #1c1917 0%, #0a0a0a 100%); border-bottom: 4px solid var(--border); }
+        .hero-video { max-width: 500px; width: 85%; height: auto; border-radius: 25px; box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.3)); }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
         .section { padding: 60px 0; border-bottom: 1px solid var(--separator); }
         .section h2 { text-align: center; margin-bottom: 40px; color: var(--highlight); font-size: 32px; font-weight: 700; }
-        .section p { text-align: center; margin-bottom: 30px; font-size: 19px; max-width: 900px; margin: 0 auto; color: #f3f4f6; }
+
+        /* --- העיצוב הכתום (רק עבור "מה זה") --- */
+        .info-box {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 30px;
+            border-radius: 20px;
+            border-right: 4px solid var(--highlight);
+            margin: 20px auto;
+            max-width: 950px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: right;
+        }
+        .info-box h3 { color: var(--highlight); margin-top: 0; display: flex; align-items: center; gap: 12px; font-size: 1.5rem; }
 
         /* Features */
         .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; list-style: none; padding: 0; margin: 0; }
@@ -173,10 +93,9 @@
             .header-logo video { height: 40px; }
             .nav-link span, .header-share span { display: none; }
             .features { grid-template-columns: repeat(2, 1fr); }
+            .info-box { padding: 20px; border-right-width: 3px; }
         }
-        @media (max-width: 500px) {
-            .features { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 500px) { .features { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -187,20 +106,12 @@
                 <source src="https://raw.githubusercontent.com/mboxil/mboxil.github.io/main/logo.mp4" type="video/mp4">
             </video>
         </a>
-
         <nav class="nav-container-liquid">
             <div class="liquid-blob"></div>
-            <a href="https://mboxil.github.io/index.html" class="nav-link animate-click" id="nav-home">
-                <i class="fas fa-home"></i> <span>ראשי</span>
-            </a>
-            <a href="https://mboxil.github.io/support.html" class="nav-link animate-click" id="nav-support">
-                <i class="fas fa-headset"></i> <span>תמיכה</span>
-            </a>
+            <a href="https://mboxil.github.io/index.html" class="nav-link animate-click" id="nav-home"><i class="fas fa-home"></i> <span>ראשי</span></a>
+            <a href="https://mboxil.github.io/support.html" class="nav-link animate-click" id="nav-support"><i class="fas fa-headset"></i> <span>תמיכה</span></a>
         </nav>
-
-        <div class="header-share animate-click" onclick="shareSite()">
-            <i class="fas fa-share-alt"></i> <span>שיתוף</span>
-        </div>
+        <div class="header-share animate-click" onclick="shareSite()"><i class="fas fa-share-alt"></i> <span>שיתוף</span></div>
     </header>
 
     <header class="hero-section">
@@ -212,14 +123,13 @@
     </header>
 
     <main class="container">
-        <section class="section">
-            <h2>מה זה מדיה בוקס?</h2>
-            <p>מדיה בוקס הינה ממשק משתמש חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת באופן מלא ל-<strong>Android TV</strong> (לא ניתן להתקין על מערכות LG או Samsung).
-                <br><br>
-                האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך ייתכן ותאימות הממשק במכשירים אלו לא תהיה מלאה.
-                <br><br>
-                <strong>חשוב לדעת: האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיצה תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</strong>
-            </p>
+      <section class="section">
+            <div class="info-box">
+                <h3><i class="fas fa-info-circle"></i> מה זה מדיה בוקס?</h3>
+                <p>מדיה בוקס הינה ממשק משתמש חדשני המאגד סדרות, סרטים ותכנים מכל רחבי הרשת תחת מעטפת אחת נוחה. האפליקציה מותאמת באופן מלא ל-<strong>Android TV</strong> (לא ניתן להתקין על מערכות LG או Samsung).</p>
+                <p>האפליקציה פועלת גם על טאבלטים וסמארטפונים, אך ייתכן ותאימות הממשק במכשירים אלו לא תהיה מלאה.</p>
+                <p><strong>חשוב לדעת:</strong> האפליקציה פועלת כמנוע חיפוש בלבד. האפליקציה איננה מאחסנת, מארחת או מפיצה תכני וידאו באופן עצמאי, וכל שימוש בתכנים אלו הינו באחריות המשתמש בלבד.</p>
+            </div>
         </section>
 
         <section class="section">
@@ -246,14 +156,14 @@
         </section>
 
         <section class="section">
-            <h2>חיבור לטלמדיה</h2>
+            <h2 style="text-align: center;">חיבור לטלמדיה</h2>
             <div class="video-container">
                 <iframe src="https://player.vimeo.com/video/845571390" allowfullscreen></iframe>
             </div>
         </section>
 
         <section class="section">
-            <h2>איך מעדכנים?</h2>
+            <h2 style="text-align: center;">איך מעדכנים?</h2>
             <div class="video-container">
                 <iframe src="https://player.vimeo.com/video/714170680" allowfullscreen></iframe>
             </div>
@@ -266,7 +176,6 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-
     <script>
     const firebaseConfig = {
         apiKey: "AIzaSyDZ8oOj2xN2fboDQR6Zg4xs1aCFPC-tpCs",
@@ -279,12 +188,10 @@
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-
     db.ref().on('value', (s) => {
         const d = s.val() || {};
         document.getElementById('count').innerText = ((d.download_count || 0) + 22460).toLocaleString();
     });
-
     function hitCounter() { db.ref('download_count').transaction(c => (c || 0) + 1); }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -302,14 +209,11 @@
             links.forEach(l => l.classList.remove('active-blob'));
             el.classList.add('active-blob');
         }
-
         setTimeout(() => moveBlob(document.getElementById("nav-home")), 150);
-
         window.addEventListener('scroll', () => {
             if (window.scrollY > 150) headerLogo.classList.add('visible');
             else headerLogo.classList.remove('visible');
         });
-
         const clickables = document.querySelectorAll(".animate-click");
         clickables.forEach(el => {
             el.addEventListener("click", function(e) {
@@ -317,17 +221,10 @@
                 if (href && !href.startsWith("#")) {
                     e.preventDefault();
                     this.classList.add("is-pressed");
-                    setTimeout(() => {
-                        this.classList.remove("is-pressed");
-                        window.location.href = href;
-                    }, 200);
-                } else {
-                    this.classList.add("is-pressed");
-                    setTimeout(() => this.classList.remove("is-pressed"), 200);
-                }
+                    setTimeout(() => { this.classList.remove("is-pressed"); window.location.href = href; }, 200);
+                } else { this.classList.add("is-pressed"); setTimeout(() => this.classList.remove("is-pressed"), 200); }
             });
         });
-
         links.forEach(l => l.addEventListener("mouseenter", () => moveBlob(l)));
         nav.addEventListener("mouseleave", () => moveBlob(document.getElementById("nav-home")));
     });
