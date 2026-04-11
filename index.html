@@ -36,6 +36,25 @@
         .nav-link.active-blob { color: #000 !important; }
         .liquid-blob { position: absolute; top: 4px; left: 4px; height: calc(100% - 8px); width: 0; background: var(--secondary-gradient); border-radius: 50px; z-index: 1; transition: all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
 
+        /* --- כפתור שיתוף מעוצב --- */
+        .header-share { 
+            background: var(--secondary-gradient); 
+            color: #000 !important; 
+            padding: 8px 20px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 15px; 
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        .header-share span, .header-share i { color: #000 !important; }
+        .header-share:active { transform: scale(0.9); }
+
         .hero-section { padding: 130px 0 80px 0; text-align: center; background: radial-gradient(circle at center, #1c1917 0%, #0a0a0a 100%); border-bottom: 4px solid var(--border); }
         .hero-video { max-width: 500px; width: 85%; height: auto; border-radius: 25px; }
 
@@ -43,7 +62,6 @@
         .section { padding: 40px 0; border-bottom: 1px solid var(--separator); }
         .section h2 { text-align: center; margin-bottom: 15px; color: var(--highlight); font-size: 30px; font-weight: 700; }
         
-        /* טקסט הסבר קטן */
         .sub-text { text-align: center; max-width: 900px; margin: 0 auto 15px; color: #d1d5db; font-size: 0.95rem; line-height: 1.5; }
         .sub-text h3 { color: var(--highlight); font-size: 1.2rem; margin-top: 15px; margin-bottom: 8px; }
 
@@ -120,10 +138,12 @@
             <ul class="features">
                 <li><span class="icon">🇮🇱</span><span class="icon-text">טלוויזיה ישראלית</span><p class="description">ערוצי עידן+ ו-VOD מקומי</p></li>
                 <li><span class="icon">🎬</span><span class="icon-text">קולנוע וסדרות</span><p class="description">אלפי סרטים ועונות מלאות</p></li>
+                <li><span class="icon">⚡</span><span class="icon-text">צפייה באיכות גבוהה</span><p class="description">תמיכה במגוון רזולוציות שידור</p></li>
                 <li><span class="icon">🔗</span><span class="icon-text">טלמדיה</span><p class="description">חיבור לקבוצות בטלגרם</p></li>
                 <li><span class="icon">🧒</span><span class="icon-text">עולם הילדים</span><p class="description">סרטים וסדרות לילדים</p></li>
                 <li><span class="icon">🌍</span><span class="icon-text">ערוצי עולם</span><p class="description">שידורי IPTV וספורט עולמי</p></li>
                 <li><span class="icon">📻</span><span class="icon-text">רדיו ופודקאסטים</span><p class="description">תחנות מוזיקה והסכתים</p></li>
+                <li><span class="icon">📺</span><span class="icon-text">חוויית סטרימינג</span><p class="description">מותאם לשלט רחוק בסטרימרים</p></li>
             </ul>
         </section>
 
